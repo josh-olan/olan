@@ -40,8 +40,8 @@ int main(void)
     //a while loop to check if 1 cent can be gotten from the leftover change
     while (cents >= 1)
     {
-       cents = cents - 1;
-       i++;
+        cents = cents - 1;
+        i++;
     }
 
     printf("%i\n", i);
