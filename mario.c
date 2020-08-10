@@ -9,7 +9,7 @@ int main(void)
         height= get_int("Please enter number between 1 and 8: \n");
     } while(height<1 || height >8);
     
-    printf("Stored: %i \n", height);
+    //printf("Stored: %i \n", height);
     
     for(int a=0; a<height; a++)
     {
@@ -22,7 +22,7 @@ int main(void)
         {
             printf("#");
         }
-        
+
         printf("\n");
     }
 }
