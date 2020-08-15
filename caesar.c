@@ -30,8 +30,8 @@ int main(int argc, string argv[])
     int key = atoi(argv[1]);
 
     //get plain text
-    string plainText= get_string ("plaintext: ");
-    string cipher= encipher(key, plainText);
+    string plainText = get_string("plaintext: ");
+    string cipher = encipher(key, plainText);
     printf("ciphertext: %s\n", cipher);
 
 }
@@ -45,10 +45,10 @@ string encipher(int key, string text)
         if (islower(text[i]))
         {
             char l;
-            l= text[i] - 97;
+            l = text[i] - 97;
             char formula = (l + key) % 26;
-            l= formula + 97;
-            text[i]= l;
+            l = formula + 97;
+            text[i] = l;
         }
         //if text is uppercase
         if (isupper(text[i]))
@@ -56,13 +56,13 @@ string encipher(int key, string text)
             char u;
             u = text[i] - 65;
             char formula = (u + key) % 26;
-            u= formula + 65;
-            text[i]= u;
+            u = formula + 65;
+            text[i] = u;
         }
         //if text is not alphabet
         else
         {
-            text[i]= text[i];
+            text[i] = text[i];
         }
     }
     return text;
