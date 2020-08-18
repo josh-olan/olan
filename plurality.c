@@ -83,23 +83,22 @@ bool vote(string name)
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    int highest_vote;
-    for (int i = 0; i < candidate_count; i++)
+    int highest_vote= candidates[0].votes;
+    for (int i = 1; i < candidate_count; i++)
     {
-        int n = i + 1;
-        if (n == candidate_count)
+        if (i == candidate_count)
         {
             break;
         }
         //checks if the array element is greater than the next element
-        if (candidates[i].votes > candidates[n].votes)
+        if (candidates[i].votes > highest_vote)
         {
             highest_vote= candidates[i].votes;
         }
         //checks if the array element is lesser than the next element
-        else if (candidates[i].votes < candidates[n].votes)
+        else if (candidates[i].votes < highest_vote)
         {
-            highest_vote= candidates[n].votes;
+            //do nothing
         }
         else
         {
