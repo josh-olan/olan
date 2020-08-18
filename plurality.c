@@ -72,7 +72,7 @@ bool vote(string name)
         //if each array element is equal to argument
         if (strcmp(name, candidates[i].name)  == 0)
         {
-            candidates[i].votes= candidates[i].votes +1;
+            candidates[i].votes = candidates[i].votes + 1;
             return true;
         }
     }
@@ -83,7 +83,7 @@ bool vote(string name)
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    int highest_vote= candidates[0].votes;
+    int highest_vote = candidates[0].votes;
     for (int i = 1; i < candidate_count; i++)
     {
         if (i == candidate_count)
@@ -93,7 +93,7 @@ void print_winner(void)
         //checks if the array element is greater than the next element
         if (candidates[i].votes > highest_vote)
         {
-            highest_vote= candidates[i].votes;
+            highest_vote = candidates[i].votes;
         }
         //checks if the array element is lesser than the next element
         else if (candidates[i].votes < highest_vote)
@@ -102,7 +102,7 @@ void print_winner(void)
         }
         else
         {
-            highest_vote= candidates[i].votes;
+            highest_vote = candidates[i].votes;
         }
     }
 
