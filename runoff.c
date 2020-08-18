@@ -202,7 +202,11 @@ int find_min(void)
             break;
         }
         //if candidate has already been eliminated, move on to the next candidate
-        if (candidates[i].eliminated == false)
+        if (candidates[i].eliminated == true)
+        {
+            //do nothing
+        }
+        else if (candidates[i].eliminated == false)
         {
             if (min_vote < candidates[j].votes)
             {
