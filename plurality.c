@@ -103,7 +103,7 @@ void print_winner(void)
         }
         else
         {
-            //do nothing
+            highest_vote= candidates[i].votes;
         }
     }
 
