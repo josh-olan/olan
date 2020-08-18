@@ -159,7 +159,7 @@ void tabulate(void)
         }
         else if (candidates[preferences[i][0]].eliminated == true)
         {
-            //do nothing
+            //
         }
         else
         {
@@ -172,7 +172,7 @@ void tabulate(void)
                     candidates[preferences[i][j]].votes++;
                     // breaks the loop
                     //j = 1000;
-                    break;
+                    continue;
                 }
                 j++;
             }
