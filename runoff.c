@@ -166,8 +166,7 @@ void tabulate(void)
                 {
                     candidates[preferences[i][j]].votes++;
                     // breaks the loop
-                    //j = 1000;
-                    continue;
+                    j = 1000;
                 }
                 j++;
             }
@@ -236,6 +235,7 @@ bool is_tie(int min)
             if (candidates[i].votes == min)
             {
                 //do nothing
+                continue;
             }
             else
             {
