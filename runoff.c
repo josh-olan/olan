@@ -171,7 +171,8 @@ void tabulate(void)
                 {
                     candidates[preferences[i][j]].votes++;
                     // breaks the loop
-                    j = 1000;
+                    //j = 1000;
+                    break;
                 }
                 j++;
             }
