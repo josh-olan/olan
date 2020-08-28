@@ -127,8 +127,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             }
 
             // top left
+            //== (int)NULL
             int tl = 1;
-            if (r_minus_one == (int)NULL || c_minus_one == (int)NULL)
+            if (r_minus_one < height || c_minus_one < width)
             {
                 tl = 0;
                 image[r_minus_one][c_minus_one].rgbtBlue = (BYTE)NULL;
@@ -138,7 +139,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // top middle
             int tm = 1;
-            if (r_minus_one == (int)NULL)
+            if (r_minus_one < height)
             {
                 tm = 0;
                 image[r_minus_one][c].rgbtBlue = (BYTE)NULL;
@@ -148,7 +149,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // top right
             int tr = 1;
-            if (r_minus_one == (int)NULL || c_plus_one == (int)NULL)
+            if (r_minus_one < height || c_plus_one > width)
             {
                 tr = 0;
                 image[r_minus_one][c_plus_one].rgbtBlue = (BYTE)NULL;
@@ -158,7 +159,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // middle left
             int ml = 1;
-            if (c_minus_one == (int)NULL)
+            if (c_minus_one < width)
             {
                 ml = 0;
                 image[r][c_minus_one].rgbtBlue = (BYTE)NULL;
@@ -170,7 +171,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // middle right
             int mr = 1;
-            if (c_plus_one == (int)NULL)
+            if (c_plus_one > width)
             {
                 mr = 0;
                 image[r][c_plus_one].rgbtBlue = (BYTE)NULL;
@@ -180,7 +181,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // bottom left
             int bl = 1;
-            if (r_plus_one == (int)NULL || c_minus_one == (int)NULL)
+            if (r_plus_one > height || c_minus_one < width)
             {
                 bl = 0;
                 image[r_plus_one][c_minus_one].rgbtBlue = (BYTE)NULL;
@@ -190,7 +191,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // bottom middle
             int bm = 1;
-            if (r_plus_one == (int)NULL)
+            if (r_plus_one > height)
             {
                 bm = 0;
                 image[r_plus_one][c].rgbtBlue = (BYTE)NULL;
@@ -200,7 +201,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 
             // bottom right
             int br = 1;
-            if (r_plus_one == (int)NULL || c_plus_one == (int)NULL)
+            if (r_plus_one > height || c_plus_one > width)
             {
                 br = 0;
                 image[r_plus_one][c_plus_one].rgbtBlue = (BYTE)NULL;
