@@ -41,21 +41,21 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
             BYTE *green = &image[i][j].rgbtGreen;
             BYTE *blue = &image[i][j].rgbtBlue;
 
-            float sepiaRed = .393 * *red + .769 * *green + .189 * *green;
+            float sepiaRed = .393 * *red + .769 * *green + .189 * *blue;
             int sred = round(sepiaRed);
             // caps the red value at 255 if greater than 255
             if (sred > 255)
             {
                 sred = 255;
             }
-            float sepiaGreen = .349 * *red + .686 * *green + .168 * *green;
+            float sepiaGreen = .349 * *red + .686 * *green + .168 * *blue;
             int sgreen = round(sepiaGreen);
             // caps the green value at 255 if greater than 255
             if (sgreen > 255)
             {
                 sgreen = 255;
             }
-            float sepiaBlue = .272 * *red + .534 * *green + .131 * *green;
+            float sepiaBlue = .272 * *red + .534 * *green + .131 * *blue;
             int sblue = round(sepiaBlue);
             // caps the blue value at 255 if greater than 255
             if (sblue > 255)
