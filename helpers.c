@@ -14,7 +14,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
             BYTE *red = &image[i][j].rgbtRed;
             BYTE *green = &image[i][j].rgbtGreen;
             BYTE *blue = &image[i][j].rgbtBlue;
-            int addition = *red + *green + *blue;
+            float addition = *red + *green + *blue;
             //use a float variable to divide all the 3 variables by 3
             float averager = addition / 3;
             //round it to a whole number
