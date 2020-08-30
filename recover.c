@@ -25,20 +25,22 @@ int main(int argc, char *argv[])
     int mem = fread(buffer, sizeof(BYTE), 512, f);
 
     //space for the filename
-    char * filename = malloc(sizeof(char *));
+    char *filename = malloc(sizeof(char *));
     FILE *img;
     int i = 0;
     // while it's not the end of the file
-    while (mem/512 == 1)
+    //while (mem/512 == 1
+    while (!(mem < 512))
     {
+        fread(buffer, sizeof(BYTE), 512, f);
         //check if the 512 byte chunk is the start of a jpeg file or not
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
         {
-            i++;
+
             if ((buffer[3] & 0xf0) == 0xe0)
             {
                 //if first jpeg
-                if (i == 1)
+                if (i == 0)
                 {
                     sprintf(filename, "%03i.jpg", 0);
                     img = fopen(filename, "w");
@@ -51,6 +53,7 @@ int main(int argc, char *argv[])
                     img = fopen(filename, "w");
                     fwrite(buffer, sizeof(BYTE), 512, img);
                 }
+                i++;
             }
         }
             //not the start of a new jpeg
