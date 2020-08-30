@@ -25,14 +25,15 @@ int main(int argc, char *argv[])
     int mem = fread(buffer, sizeof(BYTE), 512, f);
 
     //space for the filename
-    char *filename = malloc(sizeof(char *));
+    char *filename;
     FILE *img;
     int i = 0;
     // while it's not the end of the file
     //while (mem/512 == 1
-    while (!(mem < 512))
+    while (mem == 512)
     {
         fread(buffer, sizeof(BYTE), 512, f);
+        filename = malloc(sizeof(char *));
         //check if the 512 byte chunk is the start of a jpeg file or not
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
         {
@@ -63,8 +64,9 @@ int main(int argc, char *argv[])
             fwrite(buffer, sizeof(BYTE), 512, img);
         }
     }
+    free(buffer);
     fclose(img);
     //close any remaining files
     free(filename);
-    free(buffer);
+    return 0;
 }
