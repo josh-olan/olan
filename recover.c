@@ -68,5 +68,5 @@ int main(int argc, char *argv[])
     fclose(img);
     //close any remaining files
     free(filename);
-    return 0;
+    exit(0);
 }
