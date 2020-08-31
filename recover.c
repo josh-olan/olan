@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // create an array from the heap
+    //create an array from the heap
     BYTE * buffer = malloc(512 * sizeof(BYTE));
     int mem = fread(buffer, sizeof(BYTE), 512, f);
 
@@ -28,11 +28,11 @@ int main(int argc, char *argv[])
     char *filename;
     FILE *img;
     int i = 0;
-    // while it's not the end of the file
+    //while it's not the end of the file
     //while (mem/512 == 1
-    while (mem == 512)
+    do
     {
-        fread(buffer, sizeof(BYTE), 512, f);
+        mem = fread(buffer, sizeof(BYTE), 512, f);
         filename = malloc(sizeof(char *));
         //check if the 512 byte chunk is the start of a jpeg file or not
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
@@ -57,16 +57,20 @@ int main(int argc, char *argv[])
                 i++;
             }
         }
-            //not the start of a new jpeg
+        //not the start of a new jpeg
         else if (img != NULL)
         {
             //keep writing to it
             fwrite(buffer, sizeof(BYTE), 512, img);
         }
+        if (mem < 512)
+        {
+            free(buffer);
+            fclose(img);
+            //close any remaining files
+            free(filename);
+            exit(0);
+        }
     }
-    free(buffer);
-    fclose(img);
-    //close any remaining files
-    free(filename);
-    exit(0);
+    while (mem <= 512);
 }
