@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     }
 
     //create an array from the heap
-    BYTE * buffer = malloc(512 * sizeof(BYTE));
+    BYTE *buffer = malloc(512 * sizeof(BYTE));
     int mem = fread(buffer, sizeof(BYTE), 512, f);
 
     //space for the filename
@@ -65,12 +65,13 @@ int main(int argc, char *argv[])
         }
         if (mem < 512)
         {
-            free(buffer);
-            fclose(img);
             //close any remaining files
+            fclose(img);
             free(filename);
-            exit(0);
+            free(buffer);
+            return 0;
         }
     }
     while (mem <= 512);
+    return 0;
 }
