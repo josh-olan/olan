@@ -82,9 +82,7 @@ bool load(const char *dictionary)
         return false;
     }
 
-    char * n = malloc(sizeof(char *));
-    char *new_word = n;
-    free(n);
+    char *new_word = malloc(sizeof(char *));
     // Read strings from file one at a time
     t = 1;
     while (fscanf(dic, "%s", new_word) != EOF)
