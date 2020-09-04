@@ -18,7 +18,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 50;
+const unsigned int N = 60;
 
 // keeps track of size
 int t;
@@ -33,24 +33,23 @@ bool check(const char *word)
     int num = hash(word);
     // Access linked list at that index in the hash table
     node *tmp = table[num];
+    //char *a = "a\0";
     // Traverse linked list, looking for the word( strcasecmp)
-    do
+    if (table[num] != NULL)
     {
-        if (strcasecmp(word, tmp->word) == 0)
+        while (tmp != NULL)
         {
-            return true;
-        }
-        else if (strcasecmp(word, "a") == 0)
-        {
-            if(strcasecmp(word, tmp->word))
+            if (strcasecmp(word, tmp->word) == 0)
             {
                 return true;
             }
+            else
+            {
+                tmp = tmp->next;
+            }
         }
-        else
-        tmp = tmp->next;
     }
-    while (tmp->next != NULL);
+
     return false;
 }
 
@@ -83,17 +82,23 @@ bool load(const char *dictionary)
     }
 
     char *new_word = malloc(sizeof(char *));
+    if (new_word == NULL)
+    {
+        return false;
+    }
     // Read strings from file one at a time
-    t = 1;
+    t = 0;
+    node *new_node;
     while (fscanf(dic, "%s", new_word) != EOF)
     {
         //fscanf(dic, "%s", new_word);
         // Create a new node for each word that stores the word in the hashtable
-        node *new_node = malloc(sizeof(node));
+        new_node = malloc(sizeof(node));
         // check if malloc returns NULL
         if (new_node == NULL)
         {
-            return false;
+            unload();
+            return 0;
         }
 
         // copy word into node
@@ -117,8 +122,8 @@ bool load(const char *dictionary)
         }
         t++;
     }
-    free(new_word);
     return true;
+    //free(new_node);
     //free(new_word);
 }
 
