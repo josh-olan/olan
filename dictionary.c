@@ -131,17 +131,20 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
+    node *cursor;
     // any of the memory you've had to allocate has to be freed and given back to the computer
     for (int i = 0; i < N; i++)
     {
+        cursor = malloc(sizeof(node));
         node *head = table[i];
-        node *cursor = head;
+        cursor = head;
         while (cursor != NULL)
         {
-            node *tmp = cursor;
-            cursor = cursor->next;
-            free(tmp);
+            //node *tmp = cursor;
+            cursor = table[i]->next;
+            free(head);
         }
     }
+    free(cursor);
     return true;
 }
