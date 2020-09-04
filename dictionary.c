@@ -134,13 +134,13 @@ bool unload(void)
     // any of the memory you've had to allocate has to be freed and given back to the computer
     for (int i = 0; i < N; i++)
     {
-        node *tmp = table[i];
-        node *cursor = table[i];
+        node *head = table[i];
+        node *cursor = head;
         while (cursor != NULL)
         {
+            node *tmp = cursor;
             cursor = cursor->next;
             free(tmp);
-            tmp = cursor;
         }
     }
     return true;
