@@ -23,6 +23,9 @@ const unsigned int N = 1024;
 // keeps track of size
 int t;
 
+//File pointer
+FILE *dic;
+
 // Hash table
 node *table[N];
 
@@ -78,13 +81,12 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     // open the dictionary file
-    FILE *dic = fopen(dictionary, "r");
+    dic = fopen(dictionary, "r");
     // check if the return value is NULL
     if (dic == NULL)
     {
         return false;
     }
-    //char *new_word = NULL;
     char *new_word = malloc(sizeof(char *));
     // Read strings from file one at a time
     t = 0;
@@ -130,7 +132,15 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     //returns number of words in the dictionary
-    return t;
+    if (t > 0)
+    {
+        return t;
+    }
+    if (dic == NULL)
+    {
+        return 0;
+    }
+    return 0;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
