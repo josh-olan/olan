@@ -29,14 +29,6 @@ node *table[N];
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    //letters to lowercase
-    /*int word_length = strlen(word);
-    //char nword[word_length];
-    char *nword =
-    for (int i = 0; i < word_length; i++)
-    {
-        nword[i] = tolower(word[i]);
-    }*/
     // hash word to obtain a hash value
     int num = hash(word);
     //node *head = table[num];
@@ -131,20 +123,16 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    node *cursor;
     // any of the memory you've had to allocate has to be freed and given back to the computer
     for (int i = 0; i < N; i++)
     {
-        cursor = malloc(sizeof(node));
-        node *head = table[i];
-        cursor = head;
+        node *cursor = table[i];
         while (cursor != NULL)
         {
-            //node *tmp = cursor;
-            cursor = table[i]->next;
-            free(head);
+            node *tmp = cursor;
+            cursor = cursor->next;
+            free(tmp);
         }
     }
-    free(cursor);
     return true;
 }
