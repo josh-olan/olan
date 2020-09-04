@@ -21,7 +21,7 @@ node;
 const unsigned int N = 1024;
 
 // keeps track of size
-int t;
+int t = 0;
 
 //checks if file is loaded
 bool loaded = false;
@@ -90,7 +90,6 @@ bool load(const char *dictionary)
     }
     char *new_word = malloc(sizeof(char *));
     // Read strings from file one at a time
-    t = 0;
     while (fscanf(dic, "%s", new_word) != EOF)
     {
         //fscanf(dic, "%s", new_word);
@@ -135,14 +134,21 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     //returns number of words in the dictionary
+    /*
     if (loaded == true)
     {
         return t;
+    }*/
+    /*
+    if (t > 1)
+    {
+
     }
     else
     {
         return 0;
-    }
+    }*/
+    return t;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
