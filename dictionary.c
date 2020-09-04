@@ -114,14 +114,15 @@ bool load(const char *dictionary)
         if (table[number] == NULL)
         {
             table[number] = new_node;
+            t++;
         }
         else
         {
             // if not, join at the start of the list
             new_node->next = table[number];
             table[number] = new_node;
+            t++;
         }
-        t++;
     }
     free(new_word);
     return true;
@@ -132,15 +133,12 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     //returns number of words in the dictionary
-    if (t > 0)
-    {
-        return t;
-    }
     if (dic == NULL)
     {
         return 0;
     }
-    return 0;
+    else
+    return t;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
