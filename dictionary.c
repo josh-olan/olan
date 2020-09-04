@@ -18,7 +18,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 60;
+const unsigned int N = 1024;
 
 // keeps track of size
 int t;
@@ -29,27 +29,31 @@ node *table[N];
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
+    //letters to lowercase
+    /*int word_length = strlen(word);
+    //char nword[word_length];
+    char *nword =
+    for (int i = 0; i < word_length; i++)
+    {
+        nword[i] = tolower(word[i]);
+    }*/
     // hash word to obtain a hash value
     int num = hash(word);
+    //node *head = table[num];
     // Access linked list at that index in the hash table
     node *tmp = table[num];
-    //char *a = "a\0";
     // Traverse linked list, looking for the word( strcasecmp)
-    if (table[num] != NULL)
+    while (tmp != NULL)
     {
-        while (tmp != NULL)
+        if (strcasecmp(word, tmp->word) == 0)
         {
-            if (strcasecmp(word, tmp->word) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                tmp = tmp->next;
-            }
+            return true;
+        }
+        else
+        {
+            tmp = tmp->next;
         }
     }
-
     return false;
 }
 
@@ -80,25 +84,20 @@ bool load(const char *dictionary)
     {
         return false;
     }
-
+    //char *new_word = NULL;
     char *new_word = malloc(sizeof(char *));
-    if (new_word == NULL)
-    {
-        return false;
-    }
     // Read strings from file one at a time
     t = 0;
-    node *new_node;
     while (fscanf(dic, "%s", new_word) != EOF)
     {
         //fscanf(dic, "%s", new_word);
         // Create a new node for each word that stores the word in the hashtable
-        new_node = malloc(sizeof(node));
+        node *new_node = malloc(sizeof(node));
         // check if malloc returns NULL
         if (new_node == NULL)
         {
             unload();
-            return 0;
+            return false;
         }
 
         // copy word into node
@@ -122,9 +121,9 @@ bool load(const char *dictionary)
         }
         t++;
     }
+    free(new_word);
     return true;
-    //free(new_node);
-    //free(new_word);
+    free(dic);
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
