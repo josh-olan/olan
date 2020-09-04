@@ -23,9 +23,6 @@ const unsigned int N = 1024;
 // keeps track of size
 int t = 0;
 
-//checks if file is loaded
-bool loaded = false;
-
 // Hash table
 node *table[N];
 
@@ -46,6 +43,7 @@ bool check(const char *word)
     // Access linked list at that index in the hash table
     node *tmp = table[num];
     // Traverse linked list, looking for the word( strcasecmp)
+
     while (tmp != NULL)
     {
         if (strcasecmp(word, tmp->word) == 0)
@@ -85,27 +83,23 @@ bool load(const char *dictionary)
     // check if the return value is NULL
     if (dic == NULL)
     {
-        loaded = false;
         return false;
     }
     char *new_word = malloc(sizeof(char *));
     // Read strings from file one at a time
     while (fscanf(dic, "%s", new_word) != EOF)
     {
-        //fscanf(dic, "%s", new_word);
         // Create a new node for each word that stores the word in the hashtable
         node *new_node = malloc(sizeof(node));
         // check if malloc returns NULL
         if (new_node == NULL)
         {
-            unload();
-            loaded = false;
             return false;
         }
 
         // copy word into node
         strcpy(new_node->word, new_word);
-        new_node->next = NULL;
+        //new_node->next = NULL;
 
         // Hash word to obtain a hash value
         int number = hash(new_node->word);
@@ -124,30 +118,13 @@ bool load(const char *dictionary)
         }
         t++;
     }
-    loaded = true;
     free(new_word);
     return true;
-    free(dic);
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    //returns number of words in the dictionary
-    /*
-    if (loaded == true)
-    {
-        return t;
-    }*/
-    /*
-    if (t > 1)
-    {
-
-    }
-    else
-    {
-        return 0;
-    }*/
     return t;
 }
 
@@ -159,14 +136,12 @@ bool unload(void)
     {
         node *tmp = table[i];
         node *cursor = table[i];
-        do
+        while (cursor != NULL)
         {
             cursor = cursor->next;
             free(tmp);
             tmp = cursor;
         }
-        while (cursor != NULL);
     }
-    loaded = false;
     return true;
 }
