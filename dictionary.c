@@ -23,8 +23,8 @@ const unsigned int N = 1024;
 // keeps track of size
 int t;
 
-//File pointer
-FILE *dic;
+//checks if file is loaded
+bool loaded = false;
 
 // Hash table
 node *table[N];
@@ -81,15 +81,16 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     // open the dictionary file
-    dic = fopen(dictionary, "r");
+    FILE *dic = fopen(dictionary, "r");
     // check if the return value is NULL
     if (dic == NULL)
     {
+        loaded = false;
         return false;
     }
     char *new_word = malloc(sizeof(char *));
     // Read strings from file one at a time
-    t = 0;
+    t = -1;
     while (fscanf(dic, "%s", new_word) != EOF)
     {
         //fscanf(dic, "%s", new_word);
@@ -99,6 +100,7 @@ bool load(const char *dictionary)
         if (new_node == NULL)
         {
             unload();
+            loaded = false;
             return false;
         }
 
@@ -114,16 +116,16 @@ bool load(const char *dictionary)
         if (table[number] == NULL)
         {
             table[number] = new_node;
-            t++;
         }
         else
         {
             // if not, join at the start of the list
             new_node->next = table[number];
             table[number] = new_node;
-            t++;
         }
+        t++;
     }
+    loaded = true;
     free(new_word);
     return true;
     free(dic);
@@ -133,12 +135,14 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     //returns number of words in the dictionary
-    if (dic == NULL)
+    if (loaded == true)
+    {
+        return t;
+    }
+    else
     {
         return 0;
     }
-    else
-    return t;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
@@ -157,5 +161,6 @@ bool unload(void)
         }
         while (cursor != NULL);
     }
+    loaded = false;
     return true;
 }
