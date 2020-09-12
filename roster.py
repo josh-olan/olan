@@ -16,5 +16,6 @@ d = db.execute("SELECT first, middle, last, birth FROM students WHERE house = ? 
 # prints
 for row in d:
     if str(row['middle']) == 'None':
-        row['middle'] = ''
-    print("{} {} {}, born {}".format(row['first'], row['middle'], row['last'], row['birth']))
+        print("{} {}, born {}".format(row['first'], row['last'], row['birth']))
+    else:
+        print("{} {} {}, born {}".format(row['first'], row['middle'], row['last'], row['birth']))
