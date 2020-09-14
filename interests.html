@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>
+            Interests
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="actions.js"></script>
+    </head>
+    <body class="body">
+        <div class="topnav">
+            <a href="index.html" class="white">HOMEPAGE</a>
+            <a href="movies.html" class="white">MOVIES</a>
+            <a href="actors.html" class="white">ACTORS</a>
+            <a href="#" class="white active">INTERESTS</a>
+        </div>
+        <!-- header-->
+        <h2>MY INTERESTS</h2>
+        <!-- unordered list of interests-->
+        <!--Tell the user to recreate the effect-->
+        <div class="row">
+            <!-- for the input box-->
+            <div class="col-2"></div>
+            <div class="col-8 wback">I've got different interests
+                <br> Click the 'Reveal' button beside each index to reveal them.
+                <ul>
+                    <li>
+                        <button type="button" class="btn btn-dark btn-sm" id="r1" onclick="changeone()">Reveal</button> &nbsp;
+                        <a id="a1"></a>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-dark btn-sm" id="r2" onclick="changetwo()">Reveal</button> &nbsp;
+                        <a id="a2"></a>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-dark btn-sm" id="r3" onclick="changethree()">Reveal</button> &nbsp;
+                        <a id="a3"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
