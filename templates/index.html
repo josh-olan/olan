@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        {% for i in buy %}
+            <tr>
+                <td>{{ i["symbol"] }}</td>
+                <td>{{ i["company"] }}</td>
+                <td>{{ i["sum"] }}</td>
+                <td>${{ i["price"] }}</td>
+                <td>${{ i["total"] }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><b>CASH</b></td>
+            <td></td><td></td><td></td>
+            <td>${{ currentbal }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td class="total"><b>${{ balance }}</b></td>
+        </tr>
+
+    </table>
+
+
+{% endblock %}
