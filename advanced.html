@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Advanced Search</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="topnav">
+            <div id="gs">
+                <a href="index.html">Google Search</a>
+            </div>
+        </div>
+        <div>
+            <p class="l ad">Advanced Search</p>
+        </div>
+        <hr>
+        <div>
+            <p class="l fp">Find pages with...</p>
+        </div>
+        
+        <form action="https://www.google.com/search">
+            <div>
+                <div class="row">
+                    <div class="l left"> 
+                        <label for="1">all these words:</label>
+                        <label for="2">this exact word or phrase:</label>
+                        <label for="3">any of these words:</label>
+                        <label for="4">none of these words:</label>
+                    </div>
+                    <div class="right">
+                        <div id="align">
+                            <div class="divs">
+                                <input type="text" id="1" name="as_q">
+                            </div>
+                            <div class="divs">
+                                <input type="text" id="2" name="as_epq">
+                            </div>
+                            <div class="divs">
+                                <input type="text" id="3" name="as_oq">
+                            </div>
+                            <div class="divs">
+                                <input type="text" id="4" name="as_eq">
+                            </div>
+                            <div id="button">
+                                <button type="submit" class="btn btn-primary">Advanced Search</button>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </body>
+</html>
