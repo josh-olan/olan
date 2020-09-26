@@ -1,0 +1,114 @@
+.body{
+     text-align: center;
+}
+
+#input{
+    margin-top: 2px;
+    width: 520px;
+    height: 39px;
+    border: none;
+    font-size: 18px;
+    outline: none;
+}
+
+#tt
+{
+    margin: auto;
+    width: 582px;
+    height: 43px;
+    border-radius: 25px;
+    margin-top: 280px;
+    margin-bottom: 20px;
+    border: 1px solid lightgray;
+}
+.nav{
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.nav a{
+    margin: 5px;
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+    font-family: arial, sans-serif;
+}
+
+.b{
+    margin: 5px;
+    padding: 10px;
+    color: gray;
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 15px;
+}
+.left{
+    height: 300px;
+    width: 200px;
+}
+.right{
+    height: 300px;
+    width: 500px;
+    text-align: center;
+}
+
+.divs{
+    margin-bottom: 16px;
+    width: 500px;
+    border: 1px solid lightgray;
+    font-family: Arial, sans-serif;
+}
+.right input{
+    width: 490px;
+    outline: none;
+    border: none;
+
+}
+#align{
+    margin-top: 10px;
+}
+#align button{
+    width: 125px;
+    height: 30px;
+    font-size: 13px;
+    text-align: right;
+}
+#button{
+    border: none;
+    width: 130px;
+    margin-left: 370px;
+}
+.l{
+    margin-left: 50px;
+    font-family: arial, sans-serif;
+}
+.fp{
+    margin-top: 40px;
+}
+.row{
+    width: 900px;
+}
+#topnav{
+    background-color: #F0F0F0;
+    height: 60px;
+    text-align: right;
+}
+.ad{
+    font-size: 20px;
+    color: red;
+    padding-top: 20px;
+    padding-bottom: 8px;
+}
+label{
+    font-size: 13px;
+    font-family: arial, sans-serif;
+    padding: 10px;
+}
+#gs{
+    padding: 18px;
+}
+#gs a{
+    color: black;
+    text-decoration: none;
+}
