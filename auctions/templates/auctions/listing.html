@@ -1,0 +1,105 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div id="row">
+        <div class="row" id="r">
+            <div class="left">
+                <div class="i">
+                    <img src="{{ listing.imageurl }}" alt="whatever text">
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="csection">
+                    <div>
+                        <h3 class="cheader">{{listing.title}}</h3>
+                    </div>
+
+                    <div>
+                        <p>Description: {{ listing.description}}</p>
+                    </div>
+                    <div>
+                        <p>Status: 
+                            {% if listing.active == True%}
+                                <i class="act">Active</i>
+                            {% else %}
+                                <b class="clo">CLOSED</b>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div>
+                        <p>Price: £{{ listing.price }}</p>
+                    </div>
+                    <div>
+                        <p>{{ bidcount }} bid(s) so far</p>
+                    </div>
+                    {% if listing.creator == user %}
+                        <div>
+                            <a href="{% url 'close' listing.id %}" class="btn btn-primary">Close listing</a>
+                        </div> 
+                    <br>
+                    {% else %}
+                        <div>
+                            <form action="{% url 'bid' listing.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row r">
+                                    <div class="sm">
+                                        <input type="number" class="form-control" placeholder="Bid" min="{{ minbid }}" name="bid">
+                                    </div>
+                                    <div>
+                                        <input class="btn btn-primary" type="submit" value="Place Bid">
+                                    </div>
+                                    {% if listing in w_items %}
+                                        <div id="wl">
+                                            <a href="{% url 'delwatch' listing.id %}" class="btn btn-primary">Remove from watchlist</a>
+                                        </div>
+                                    {% else %}
+                                        <div id="wl">
+                                            <a href="{% url 'addwatch' listing.id %}" class="btn btn-primary">Add to watchlist</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>    
+                <hr>
+                <div class="csection">
+                    <h5 class="cheader">Details</h5>
+                    <ul>
+                        <li>Listed By:  {{ listing.creator.username }}</li>
+                        <li>Category:  <a href="{% url 'category' listing.category %}">{{ listing.category }}</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="csection">
+                    <h5 class="cheader">Comments</h5>
+                    {% if not allcomments%}
+                        No comment on item.
+                    {% else %}
+                        {% for comment in allcomments %}
+                            <div>
+                                <p><i>{{ comment.commenter }}</i> : {{ comment.comment }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div id="comment">
+                        <form action="{% url 'comment' listing.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="al">
+                                <div class="row">
+                                    <div>
+                                        <textarea id="textarea" maxlength="400" name="comment" placeholder="Enter comment here"></textarea>
+                                    </div>
+                                    <div id="addcomment">
+                                        <input type="submit" class="btn btn-primary" value="Add comment">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
