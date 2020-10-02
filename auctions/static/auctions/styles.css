@@ -1,0 +1,75 @@
+body {
+    padding: 10px;
+}
+.in input{
+    width: 300px;
+}
+.row .card{
+    margin: 20px;
+}
+.card{
+    width: 18rem;
+}
+.card img{
+    height: 250px;
+}
+.i img{
+    max-width: 390px;
+    display: block;
+    max-height: 540px;
+}
+.row .left{
+    margin-right: 20px;
+}
+div form .r{
+    height: 40px;
+}
+div form div div[id='wl']{
+    margin-left: 40px;
+}
+.left{
+    width: 400px;
+    height: 550px;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+.right{
+    width: 1000px;
+    height: 550px;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+#comment{
+    padding-left: 14px;
+    text-align: center;
+}
+.al{
+    width: 600px;
+    margin-left: 330px;
+}
+#textarea{
+    width: 300px;
+    height: 60px;
+}
+#addcomment{
+    padding: 8px;
+}
+.sm{
+    width: 80px;
+    margin-left: 10px;
+    padding-right: 10px;
+}
+.act{
+    color: green;
+}
+.clo{
+    color: red;
+}
+.csection{
+    background-color: #F0F0F0;
+    padding: 10px;
+}
+.cheader{
+    text-align: center;
+}
