@@ -1,0 +1,47 @@
+body {
+    background-color: #f9faf3;
+}
+#open-view{
+    background-color: white;
+    padding: 5px;
+    height: 500px;
+}
+textarea {
+    min-height: 400px;
+}
+#emails-view .mails{
+    position: relative;
+    border: 1px solid #f9faf3;
+    font-family: sans-serif;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    height: 30px;
+    margin-bottom: auto;
+}
+#emails-view .mail :hover{
+    background-color: rgb(196, 211, 221);
+}
+.unread{
+    background-color: white;
+}
+.read{
+    background-color: rgb(233, 232, 232);
+}
+#sender{
+    font-weight: bold;
+    padding-right: 10px;
+}
+#subject{
+    font-size: 15px;
+}
+#timestamp{
+    position: absolute;
+    right: 0;
+    color: gray;
+    padding-right: 5px;
+    font-size: 14px;
+}
+.content{
+    font-family: sans-serif;
+}
