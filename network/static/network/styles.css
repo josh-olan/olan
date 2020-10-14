@@ -1,0 +1,179 @@
+@keyframes displaypostfield{
+    0% {
+        opacity: 0;
+        height: 0%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        line-height: 0%;
+        margin-bottom: 0px;
+    }
+    50% {
+        opacity: 0%;
+        height: 50%;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        line-height: 50%;
+        margin-bottom: 10px;
+    }
+    75% {
+        opacity: 50%;
+        height: 50%;
+        padding-top: 11px;
+        padding-bottom: 11px;
+        line-height: 75%;
+        margin-bottom: 15px;
+    }
+    100% {
+        opacity: 100%;
+        height: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        line-height: normal;
+        margin-bottom: 20px;
+    }
+}
+
+#body{
+    margin: 15px;
+    font-family: sans-serif;
+}
+#header-family{
+    height: 50px;
+    position: relative;
+}
+#addnew{
+    position: absolute;
+    bottom: 25%;
+    margin-left: 14px;
+}
+#header{
+    font-weight: bold;
+    font-size: 30px;
+}
+.button{
+    font-size: 15px;
+}
+#new-post{
+    display: none;
+    border: 1px solid lightgray;
+    padding: 15px;
+    animation: displaypostfield 150ms forwards paused;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: ease;
+}
+#new-post-text{
+    font-size: 20px;
+    margin-bottom: 0.2%;
+}
+#post-text{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+#post-textarea{
+    resize: none;
+    width: 99%;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+}
+
+.posts{
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+    background-color: rgb(245, 243, 239);
+    margin-bottom: 10px;
+}
+.username{
+    font-weight: bold;
+    padding-bottom: 0;
+}
+.timestamp{
+    color: gray;
+    margin-bottom: 0;
+    line-height: 5px;
+    font-size: 14px;
+}
+.edit{
+    position: absolute;
+    right: 1%;
+    bottom: 15px;
+}
+.like-icon{
+    width: 30px;
+}
+.likes-count{
+    margin-left: 10px;
+}
+div[class="posts"] a[id="like_a"] :hover{
+    opacity: 50%;
+    width: 35px;
+}
+#edit_textarea{
+    width: 100%;
+    resize: none;
+    margin-bottom: 10px;
+}
+.pagination nav{
+    margin: auto;
+    margin-top: 10px;
+}
+#page_index{
+    color: white;
+    background-color: rgb(10, 12, 10);
+}
+#alerter{
+    text-align: center;
+}
+
+/* CSS for the  Profile page */
+
+#profile-text{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+#profile{
+    background-color: rgb(233, 238, 241);
+    border-radius: 25px;
+}
+img[alt='profile image']{
+    width: 100px;
+    margin: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+#profile-username{
+    text-align: center;
+}
+#profile-follow{
+    padding-top: 15px;
+    display: block;
+    margin-bottom: 15px;
+    height: 60px;
+    background-color: rgb(30, 42, 59);
+}
+#profile-followers, #profile-following{
+    position: absolute;
+    font-size: 18px;
+   /* background-color:rgb(178, 224, 222);*/
+    height: 40px;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+#profile-followers{
+    right: 30%;
+}
+#profile-following{
+    left: 30%;
+}
+button[id="profile-followbtn"]{
+    position: absolute;
+    right: 47.5%;
+    display: block;
+}
+
