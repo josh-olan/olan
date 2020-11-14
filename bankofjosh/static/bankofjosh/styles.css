@@ -1,0 +1,717 @@
+@keyframes f-in{
+    from {
+        opacity: 0; 
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1; 
+        transform: translateY(0px);
+    }
+}
+@keyframes show_text{
+    0% { opacity: 40%; }
+    50% { opacity: 100%; }
+    100% { opacity: 40%; }
+}
+@keyframes gradual_display{
+    0% { 
+        opacity: 0%;
+        line-height: 30%;
+    }
+    50% { 
+        opacity: 30%;
+        line-height: 80%;
+    }
+    100% { 
+        opacity: 100%;
+        line-height: 100%;
+    }
+}
+@keyframes reverse_display{
+    0% { 
+        opacity: 100%;
+        line-height: 100%;
+    }
+    50% { 
+        opacity: 30%;
+        line-height: 80%;
+    }
+    100% { 
+        opacity: 0%;
+        line-height: 30%;
+    }
+}
+
+.f-in{
+    animation: f-in 500ms ease-in;
+}
+.hide{
+    opacity: 0;
+}
+.tal{
+    text-align: left;
+}
+.tac{
+    text-align: center;
+}
+.mbtpx{
+    margin-bottom: 20px;
+}
+.ma{
+    margin: auto;
+}
+.bl{
+    color: black;
+}
+.wfc{
+    width: fit-content;
+}
+.hfc{
+    height: fit-content;
+}
+.helv{
+    font-family: helvetica;
+}
+a{
+    text-decoration: none!important;
+}
+#row{
+    margin: auto;
+    padding-left: 13%; 
+    padding-right: 13%;
+}
+#row, #accounts_container{
+    margin-top: 30px;
+}
+.ts{
+    overflow-x: auto;
+}
+thead{
+    font-size: 90%;
+}
+.bs{
+    background-color: rgb(82, 88, 94);
+    color: white;
+    font-size: smaller;
+}
+.bs3{
+    background-color: rgb(33, 59, 85);
+    color: white;
+    font-size: smaller;
+}
+.bs2{
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 3px;
+    color: black;
+    font-weight: 400;
+    padding: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: helvetica;
+    box-shadow: 1px 1px rgb(193, 211, 218);
+}
+.bs3, .bs{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#stock, #myaccounts{
+    border: 1px solid lightgray;
+    box-shadow: 3px 3px 15px lightgray, -3px -3px 15px lightgray;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.hr{
+    border: 1px solid rgb(248, 246, 246);
+}
+
+/* Home page */
+#services>div{
+    margin: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+#services img{
+    max-height: 150px;
+    border-radius: 50%;
+    /*border: 1px solid lightgreen;*/
+    margin: auto;
+}
+#services p{
+    font-family: helvetica;
+    font-weight: 700;
+    font-size: larger;
+    color:rgb(141, 141, 141);
+    margin-top: 10px
+}
+.first_content{
+    margin-top: 30px;
+}
+#bme{
+    font-weight:700; 
+    font-size: 30px; 
+    font-family: sans-serif;
+}
+.acttypes{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-width: fit-content;
+}
+.fwsh{
+    font-weight: 600;
+}
+#act_div{
+    margin-top: 20px;
+}
+#act_par{
+    padding-top: 10px;
+}
+.fstpx{
+    font-size: 20px;
+}
+.fsepx{
+    font-size: 18px;
+}
+#services-section{
+    margin-top: 50px; 
+    border-top: 1px solid rgb(174, 220, 238); 
+    border-bottom: 1px solid rgb(174, 220, 238);
+    box-shadow: 10px 10px 20px lightgray, -10px -10px 20px lightgray;
+}
+.mrf{
+    margin-right: 5px;
+}
+.act_icons{
+    max-height: 25px; 
+    display: inline-block;
+}
+.wu{
+    max-height: 70px;
+}
+.mdz{
+    background-color: rgb(6, 95, 122); 
+    margin-top: 40px; 
+    margin-bottom: 60px;
+}
+.mdz img{
+    max-height: 350px; 
+    margin-left: auto;
+}
+#rtp{
+    font-size: 45px; 
+    font-weight: 500;
+    font-family: sans-serif;
+}
+#rtp_div{
+    margin-right: auto; 
+    color: white;
+}
+.mngmnt_img{
+    height: 300px; 
+    margin-bottom: 10px; 
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+.mngmnt_p{
+    color: darkslategrey;
+}
+#mngmnt_h{
+    font-size: 25px;
+}
+.mngmnt_img_div{
+    padding: 15px;
+    min-width: fit-content;
+}
+#mngmnt_div{
+    margin-top: 60px;
+}
+#stock_img_div{
+    min-width: fit-content;
+}
+
+
+#myaccounts{
+    height: 100%;
+    margin-bottom: 20px;
+}
+#stock{
+    margin-bottom: 30px;
+}
+#warning{
+    text-align: center;
+    animation: show_text forwards 2s infinite;
+    color: red;
+    font-size: small;
+}
+body{
+    background-color: white;
+}
+.footer2, .footer1{
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+.footer1{
+    font-size: 13px;
+    padding: 10px;
+    position: relative;
+    background-color: whitesmoke;
+    width: 100%!important;
+    color: black;
+    border-top: 1px solid  rgb(174, 220, 238);
+    text-align: center;
+    margin-top: 25px;
+    height: fit-content;
+}
+.footer2{
+    position: fixed;
+    height: 90px;
+    background-color: white;
+}
+#navigate, #menu li a, #menu_div{
+    height: 90px;
+}
+#menu_div{
+    z-index: 1;
+}
+#navigate{
+    background-color: whitesmoke;
+    color: black;
+}
+#navigate_div{
+    box-shadow:  3px 3px 18px lightgray;
+    border-bottom: 1px solid  rgb(174, 220, 238);
+}
+#menu{
+    margin-left: auto;
+}
+#menu li{
+    max-height: 90px !important; 
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#menu li a{
+    margin: auto;
+    padding-top: 25px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+#menu li a:hover{
+    background-color: rgb(174, 216, 226);
+    font-family: Helvetica;
+    font-size: 16px;
+    color: black;
+}
+
+
+.dib{
+    display: inline-block;
+    position: relative; 
+    top: 8px;
+}
+
+
+.footer2, .footer1{
+    border-bottom: 1px solid lightgray;
+}
+#login, #register_first, #register_second{
+    padding: 20px;
+}
+#login_create{
+    text-align: center;
+    margin-top: 30px;
+}
+#login_create span{
+    color: blue;
+    font-weight: 600;
+}
+#forgot_pword{
+    font-size: smaller; 
+    text-align: left;
+    margin-top: 15px;
+}
+#login_btn{
+    margin: 10px;
+}
+.authen label{
+    text-align: left;
+    width: 100%;
+}
+.authen{
+    text-align: left;
+    border: 1px solid lightgray;
+    background-color: white;
+    margin: auto;
+    width: 25%;
+    padding: 20px;
+    margin-top: 5%;
+    box-shadow: 5px 5px 4px lightgray, -5px -5px 4px lightgray;
+}
+.authen p{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: sans-serif;
+    color: darkgreen;
+    text-align: center;
+}
+#register_div{
+    text-align: center;
+}
+#boj{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+img{
+    max-width: 98%;
+    max-height: 400px;
+    display: block;
+}
+#welcome{
+    margin: 20px;
+    font-size: 20px;
+    color: gray;
+}
+#account-amount{
+    font-family: helvetica;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(2, 77, 48);
+}
+#sc{
+    word-spacing: -4px;
+}
+#description{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.each_account_holder :hover{
+    background-color: rgb(190, 225, 243);
+    color: black;
+}
+#account-row{
+    border-bottom: 0.5px solid rgb(209, 221, 226);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Transactions table styling */
+.transactions_view{
+    margin-top: 20px;
+    font-size: 90%;
+}
+#trans_back{
+    margin-left: 20px;
+    margin: auto;
+}
+.credit{
+    color: green;
+}
+.debit{
+    color: red;
+}
+thead{
+    background-color: white;
+}
+
+
+/* Back a href elements */
+.back{
+    font-size: 90%;
+    border-radius: 4px;
+    padding: 6px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: rgb(21, 146, 21);
+    color: white;
+}
+.back:hover{
+    color: white;
+    background-color: rgb(10, 190, 10);
+}
+.r{
+    float: right;
+    font-size: 90%;
+}
+
+#account-type{
+    font-size: larger;
+    font-family: helvetica;
+}
+#account-amount, #account-type, small{
+    line-height: 80%;
+}
+#account-row{
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.col-md-auto > img{
+    padding: 5px;
+}
+#xo{
+    padding: 20px;
+    width: 50%;
+    margin-top: 30px;
+}
+#xo div{
+    margin-bottom: 10px;
+}
+#xo p{
+    font-weight: 400;
+}
+input[type="text"], input[type="number"]{
+    border: none;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+/** MODAL 1 styling **/
+.modal-header{
+    background-color: rgb(129, 235, 156);
+    height: 50px;
+}
+.modal-footer{
+    height: 50px;
+}
+.modal-footer > button{
+    margin-top: -5px;
+}
+#modallabel, #modallabel2{
+    margin-top: -10px;
+    font-weight: 700;
+}
+.ic{
+    width: 40px;
+    height: 40px;
+}
+#modal-body1, #modal-body2{
+    color: red;
+}
+
+/* MODAL 2 styling */
+#modal-header2{
+    background-color: rgb(151, 151, 44);
+}
+#modal2{
+    font-size: 90%;
+}
+#modal-footer2>button{
+    font-size: 90%;
+    border: 1px solid lightgray;
+}
+#modal-footer2>button:nth-child(2){
+    background-color: lightgreen;
+}
+#modal-header2{
+    background-color: rgb(247, 241, 241);
+    font-weight: 400;
+}
+
+/* Pagination */
+#pg, #pg2{
+    font-family: sans-serif;
+}
+#pg{
+    padding-top: 14px;
+}
+
+
+/* TRADING VIEWS */
+#stockview_button_options>div{
+    display: none;
+    border-top: 1px solid rgb(224, 224, 224);
+    border-bottom: 1px solid rgb(224, 224, 224);
+    margin-top: 10px;
+    padding: 10px;
+}
+.sbo_div{
+    width: 50%;
+}
+#btn_right{
+    text-align: right;
+}
+#watch_input{
+    width: fit-content; 
+    padding: 0;
+}
+#aw_cont{
+    width: fit-content;
+}
+.sbo_div>div{
+    padding: 5px;
+}
+#withdrawal_view, #deposit_view{
+    animation: gradual_display 250ms forwards;
+    animation-play-state: paused;
+}
+#aw_div{
+    width: fit-content;
+}
+#aw_div button{
+    border: none;
+    background-color: rgb(33, 59, 85);
+    color: white;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
+}
+#watchlist_section{
+    background-color: rgb(245, 248, 247); 
+    padding-left: 5px;
+}
+#watchlist_stock{
+    width: 300px;
+}
+.fxt{
+    margin-top: 10px;
+    border: 1px solid rgb(180, 178, 178);
+    width: 90%;
+    font-size: 90%;
+}
+#activetrades_table>thead{
+    font-size: 90%;
+}
+.hs{
+    font-family: helvetica;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(2, 77, 48);
+}
+#td-bal{
+    font-size: 20px;
+    color: black;
+    font-weight: normal;
+}
+#w_header_par{
+    width: fit-content;
+}
+.w_header, .wsmall{
+    padding-left: 0;
+    min-width: fit-content;
+}
+.wsmall{
+    padding-top: 6px;
+}
+.close_btns{
+    padding-top: 7px; 
+    color: blue; 
+    padding-left: 17px; 
+    text-decoration: underline;
+}
+
+
+/* MEDIA QUERIES */
+
+/* Extra small devices (phones, 600px and down) */
+@media screen and (max-width: 600px) {
+    .sbo_div{
+        width: 90%;
+    }
+    #row{
+        margin: auto;
+        padding-left: 2%; 
+        padding-right: 2%;
+    }
+    .authen{
+        width: 75%;
+    }
+    .fxt{
+        width: 100%;
+    }
+}
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+@media screen and (min-width: 600px) {
+    .sbo_div{
+        width: 90%;
+    }
+    #row{
+        margin: auto;
+        padding-left: 2%; 
+        padding-right: 2%;
+    }
+    .authen{
+        width: 75%;
+    }
+}
+  
+/* Medium devices (landscape tablets, 768px and up) */
+@media screen and (min-width: 768px) {
+    .sbo_div{
+        width: 40%;
+    }
+    #row{
+        margin: auto;
+        padding-left: 5%; 
+        padding-right: 5%;
+    }
+    .authen{
+        width: 50%;
+    }
+} 
+  
+/* Large devices (laptops/desktops, 992px and up) */
+@media screen and (min-width: 992px) {
+    #row{
+        margin: auto;
+        padding-left: 10%; 
+        padding-right: 10%;
+    }
+    .fxt{
+        width: 90%;
+    }
+} 
+  
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media screen and (min-width: 1200px) {
+    #row{
+        margin: auto;
+        padding-left: 13%; 
+        padding-right: 13%;
+    }
+}
+
+@media screen and (max-width: 935px){
+    #xo{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1400px){
+    .authen{
+        width: 25%;
+    }
+}
+
+/* The 'Add to watchlist' button */
+@media screen and (max-width: 533px){
+    #aw_div button{
+        width: 300px;
+        margin-left: auto;
+        height: 35px;
+    }
+    #aw_div{
+        padding: 0;
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 347px){
+    #aw_div button{
+        width: 250px;
+    }
+    #watchlist_stock{
+        width: 250px;
+    }
+}
+@media screen and (max-width: 295px){
+    #aw_div button{
+        width: 200px;
+    }
+    #watchlist_stock{
+        width: 200px;
+    }
+}
