@@ -1,0 +1,14 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div class="container-fluid pad2">
+        <h5>Watchlist</h5>
+        <ul>
+            {% for item in items %}
+                <li><a href="{% url 'listing' item.item.id %}">{{ item.item.title }}</a></li>
+            {% empty %}
+                No item in your watchlist!
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
