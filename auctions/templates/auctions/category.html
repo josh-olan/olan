@@ -1,14 +1,14 @@
 {% extends 'auctions/layout.html' %}
 
 {% block body %}
-    <h4>Category - {{ items.first.category }}</h3>
-    <ul>
-        {% for item in items %}
-            {% if item.active == True %}
+    <div class="container-fluid pad2">
+        <h5>Category - {{ category }}</h5>
+        <ul>
+            {% for item in items %}
                 <li><a href="{% url 'listing' item.id %}">{{ item.title }}</a></li>
-            {% endif %}
-        {% empty %}
-        All listings in this category are closed!
-        {% endfor %}
-    </ul>
+            {% empty %}
+            All listings in this category are closed!
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
