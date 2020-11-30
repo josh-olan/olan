@@ -1,10 +1,10 @@
 OLAN (formerly Bank Of Josh) offers a banking and trading platform.
-OLAN is mobile-responsive and has 8 models. It differs from all projects done with the introduction of banking, finance and stocks trading, hence providing a more complex but exciting software.
+OLAN is mobile-responsive and has 8 models. It differs from all projects done with the introduction of banking, finance and stocks trading, hence providing a more complex but exciting and easy to use software.
 
 FUNCTIONALITIES
 - The user can 'Register' with OLAN.
 - After registration, the user can open different types of accounts; Savings, Current and Help-To-Buy accounts, when the user clicks on the 'Add account' tab.
-- On opening the account(s), account numbers and sort codes are randomly generated and all users are given default balances of £5,000.00 for  each account opened. All users cannot open more than 1 account per account type.
+- On opening the account(s), account numbers and sort codes are randomly generated and all users are given default balances of £5,000.00 for each account opened. All users cannot open more than 1 account per account type.
 - The user can transfer the "funds" between the different accounts owned by the user and transfer to external accounts (belonging to another user). That can be done with the 'Send money' tab.
 - The user can view the current balances of all accounts owned with 'My Accounts' tab.
 - The user can view the transaction history for all the accounts opened when the user clicks the desired account.

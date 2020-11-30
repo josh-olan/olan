@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-    <p id="welcome" style="padding-left: 13%;">Welcome, {{ data.firstname }}.</p>
+    <p id="welcome">Welcome back, {{ data.firstname }}.</p>
     <div class="container-fluid" id="row">
         <div>
             <div id="myaccounts">
@@ -123,7 +123,7 @@
                                         <label for="external" class="form-check-label">Transfer to an external account</label>
                                     </div>
                                     <hr class="hr">
-                                    <button class="btn btn-primary">Next</button>
+                                    <button class="btn_replace">Next</button>
                                 </div>
                             </div>
 
@@ -153,9 +153,12 @@
                                     <div class="form-group">
                                         <input type="number" placeholder="Amount"  class="form-control" min="1" id="btwn_amount" required>
                                     </div>
-                                    <hr class="hr">
-                                    <a href="#" class="back" data-display="2" data-index="1">Back</a>
-                                    <button class="btn btn-primary r" id="transfer_btn">Transfer</button>
+                                    <div id="send_bottom_div">
+                                        <a href="#" class="back" data-display="2" data-index="1">Back</a>
+                                        <span>
+                                            <button class="btn_replace r" id="transfer_btn">Transfer</button>
+                                        </span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -163,7 +166,8 @@
                         <div class="external_account_view w3-animate-right">
                             <form id="transfer_external_form">
                                 <div id="xo">
-                                    <p>Enter recipient's details</p>
+                                    <p id="xop">RECIPIENT'S DETAILS</p>
+                                    <hr class="hr">
                                     <div class="row">
                                         <div class="col">
                                             <label for="rfirstname">First name</label>
@@ -202,9 +206,12 @@
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <hr class="hr">
-                                    <a href="#" class="back" data-display="2" data-index="2">Back</a>
-                                    <button class="btn btn-primary r" type="submit" id="send_btn">Send</button>
+                                    <div id="send_bottom_div">
+                                        <a href="#" class="back" data-display="2" data-index="2">Back</a>
+                                        <span>
+                                            <button class="btn_replace" type="submit"id="send_btn">Send</button>
+                                        </span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -228,7 +235,7 @@
                                     <label for="help-to-buy" class="form-check-label">OLAN help-to-buy</label>
                                 </div>
                                 <hr class="hr">
-                                <button type="submit" class="btn btn-primary">Add account</button>
+                                <button type="submit" class="btn_replace">Add account</button>
                             </div>
                         </form>
                     </div>
@@ -357,6 +364,7 @@
                                 <th>Purchase Price</th>
                                 <th>Amount at sale</th>
                                 <th>Total</th>
+                                <th>Profit</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -439,7 +447,7 @@
     </div>
 
     <footer>
-        <div class="footer1"><!--
+        <div class="footer1 container-fluid"><!--
             <p>
                 <a href="https://icons8.com/icon/73/home">icon by Icons8 |</a>
                 <a href="https://icons8.com/icon/978/account">Account icon by Icons8 | </a>
@@ -482,5 +490,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="loading">
+        <img src="{% static 'bankofjosh/loading.png' %}" alt="Loading" height="40" width="40" class="loading">
     </div>
 {% endblock %}

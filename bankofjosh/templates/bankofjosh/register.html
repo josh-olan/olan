@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="username" class="form-control" id="username" minlength="1" name="username">
+                <input type="text" class="form-control" id="username" minlength="1" name="username">
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
@@ -38,11 +38,11 @@
             <hr>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" minlength="4">
             </div>
             <div class="form-group">
                 <label for="confirmation">Re-enter password</label>
-                <input type="password" class="form-control" id="confirmation">
+                <input type="password" class="form-control" id="confirmation" minlength="4">
             </div>
             <div class="form-group">
                 <label for="recover_dropdown">Select security question</label>
@@ -60,7 +60,7 @@
         </div>
 
         <div id="register_div">
-            <button type="button" class="btn btn-primary" id="register_button">Next</button>
+            <button type="button" class="btn_replace" id="register_button">Next</button>
         </div>
     </form>
 

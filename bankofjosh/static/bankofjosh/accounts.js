@@ -259,7 +259,7 @@ function sendto(){
 function transfer_between_accounts(event){
 
     event.preventDefault();
-
+    loading("load");
     let from = document.querySelector('#from').value;
     let to = document.querySelector('#to').value;
     let amount = parseFloat(document.querySelector('#btwn_amount').value);
@@ -280,11 +280,13 @@ function transfer_between_accounts(event){
         if (message.error != undefined){
             throw Error(message.error)
         }
+        loading("hide");
         switch_views(1);
         update_balances();
         display_message(null, message.message);
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error);
     })
 }
@@ -292,7 +294,7 @@ function transfer_between_accounts(event){
 
 function update_balances(){
     // Updates balances
-
+    loading("load");
     let all = document.querySelectorAll('#account-type');
     for (let i = 0; i < all.length; i++){
         let element = all[i];
@@ -303,6 +305,7 @@ function update_balances(){
              `£${ parseFloat(data.data.toFixed(2)).toLocaleString() }`;
         })
     }
+    loading("hide");
 }
 
 
@@ -336,7 +339,7 @@ function transfer_external_account(){
     const debit_account = document.querySelector('#from_account').value;
 
     document.querySelector('#no').click();
-
+    loading("load");
     fetch('/transfer_external_account', {
         method: 'POST',
         headers: {
@@ -357,11 +360,13 @@ function transfer_external_account(){
         if(data.error != undefined){
             throw Error(data.error)
         }
+        loading("hide");
         switch_views(1);
         update_balances();
-        display_message(null, data.message)
+        display_message(null, data.message);
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error)
     })
 }
@@ -376,32 +381,36 @@ function display_message(error, message){
         if_image.remove()
     }
 
+    let header = document.querySelector("#modal-header1");
+    let body = document.querySelector("#modal-body1");
+    let label = document.querySelector("#modallabel");
+
     // Throw error
     if (error != null){
         // Update message
-        document.querySelector("#modal-header1").style.backgroundColor = "rgb(235, 129, 129)";
-        document.querySelector("#modal-body1").style.color = "red";
+        header.style.backgroundImage = "linear-gradient(to bottom, rgb(233, 109, 109), rgb(235, 129, 129))";
+        body.style.color = "red";
 
         let img = document.createElement("img");
         img.src = "/static/bankofjosh/erroricon.png";
         img.alt = "Error icon";
         img.className = "d-inline-block ic";
 
-        document.querySelector("#modallabel").insertBefore(img, 
-            document.querySelector("#modallabel").firstChild);
-        document.querySelector("#modallabel>span").innerHTML = "ERROR";
+        label.insertBefore(img, 
+            label.firstChild);
+        label.querySelector("span").innerHTML = "ERROR";
     } else {
-        document.querySelector("#modal-header1").style.backgroundColor = "rgb(129, 235, 156)";
-        document.querySelector("#modal-body1").style.color = "black";
+        header.style.backgroundImage = "linear-gradient(to bottom, rgb(109, 215, 116), rgb(129, 235, 156))";
+        body.style.color = "black";
 
         let img = document.createElement("img");
         img.src = "/static/bankofjosh/successicon.png";
         img.alt = "Success icon";
         img.className = "d-inline-block ic";
 
-        document.querySelector("#modallabel").insertBefore(img, 
-            document.querySelector("#modallabel").firstChild);
-        document.querySelector("#modallabel>span").innerHTML = "SUCCESS";
+        label.insertBefore(img, 
+            label.firstChild);
+        label.querySelector("span").innerHTML = "SUCCESS";
     }
     document.querySelector('#modal-body1').innerHTML = message;
     document.querySelector('#modal_btn').click();
@@ -471,6 +480,7 @@ function pagination(account, page){
     /*
     PAGINATION
     */
+    loading("load");
 
     // Clear contents of table
     clear_table();
@@ -478,14 +488,29 @@ function pagination(account, page){
     fetch(`/get_transactions/${account}/${page}`)
     .then(response => response.json())
     .then(data => {
-        if (data.data.length == 0 && 
-            document.querySelector('#no_trans_notice') == undefined){
+        console.log(data);
+        let table = document.querySelector('#table1').style;
+        let pagination = document.querySelector('#pagination_one');
+        if (data.data.length == 0){
+            if (!document.querySelector('#no_trans_notice')){
 
-            let p = document.createElement('p');
-            p.id = "no_trans_notice";
-            p.innerHTML = "You have no transaction with this account.";
-            document.querySelector('.ts').append(p);
+                let p = document.createElement('p');
+                p.id = "no_trans_notice";
+                p.style.fontSize = "13px";
+                p.innerHTML = "You have no transaction with this account.";
+                table.display = "none";
+                document.querySelector('.ts').append(p);
+
+                // Hide pagination
+                pagination.style.visibility= "hidden";
+            }
         } else {
+
+            // Display the table
+            table.display = "table";
+
+            // Display pagination
+            pagination.style.visibility = "visible";
 
             // Remove the text
             if (data.data.length != 0 && document.querySelector('#no_trans_notice') != null){
@@ -567,8 +592,10 @@ function pagination(account, page){
                 third.innerHTML = third.dataset.page;
             }
         }
+        loading("hide");
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error);
     })
 }
@@ -668,11 +695,13 @@ function update_trading_balance(){
     /*
     Update the trading balance of the user
     */
+    loading("load");
     fetch('/update_balances/trading')
     .then(response => response.json())
     .then(data => {
         const bal = currency_converter("GBP", data.data, "balance");
         document.querySelector('#stock>p>span').innerText = `$${bal}`;
+        loading("hide");
     })
 }
 
@@ -767,7 +796,7 @@ function add_to_watchlist(event){
 
     event.preventDefault()
     let stock = document.querySelector('#watchlist_stock').value;
-
+    loading("load");
     fetch(`https://cloud.iexapis.com/stable/stock/${stock}/batch?token=${key}&types=quote`)
     .then(response => response.json())
     .then(data => {
@@ -793,13 +822,19 @@ function add_to_watchlist(event){
             }
 
             get_watchlist_stocks(); 
+            loading("hide");
+            document.querySelector("#stock").scrollIntoViewIfNeeded();
             display_message(null, data.message);
         })
         .catch(error => {
+            loading("hide");
+            document.querySelector("#stock").scrollIntoViewIfNeeded();
             display_message("error", error)
         })
     })
     .catch(error => {
+        loading("hide");
+        document.querySelector("#stock").scrollIntoViewIfNeeded();
         display_message("error", "Stock not found!");
     })
 }
@@ -809,26 +844,30 @@ function remove_from_watchlist(symbol){
     /*
     Remove a stock from the watchlist
     */
-
-   fetch(`/modify_watchlist/remove`, {
-       method: 'POST',
-       headers: {
-           'X-CSRFToken': csrf
-       },
-       body: JSON.stringify({
-           "symbol": symbol,
-           // Company name not needed
-           "company_name": null
-       })
-   })
-   .then(response => response.json())
-   .then(data => {
-        get_watchlist_stocks()
+    loading("load");
+    fetch(`/modify_watchlist/remove`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrf
+        },
+        body: JSON.stringify({
+            "symbol": symbol,
+            // Company name not needed
+            "company_name": null
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        get_watchlist_stocks();
+        loading("hide");
+        document.querySelector('#stock').scrollIntoViewIfNeeded();
         display_message(null, data.message);
-   })
-   .catch(error => {
-       display_message("error", error);
-   })
+    })
+    .catch(error => {
+        loading("hide");
+        document.querySelector('#stock').scrollIntoViewIfNeeded();
+        display_message("error", error);
+    })
 }
 
 
@@ -883,7 +922,7 @@ function get_watchlist_stocks(){
     /*
     Returns list of watchlist stocks
     */
-
+    loading("load");
     fetch("/get_watchlist_stocks")
     .then(response => response.json())
     .then(data => {
@@ -891,16 +930,24 @@ function get_watchlist_stocks(){
         // Remove children elements
         document.querySelectorAll('#stocks_tbody>tr').forEach(el => {el.remove()});
 
-        let tbody = document.querySelector('#stocks_tbody')
+        let tbody = document.querySelector('#stocks_tbody');
+        let stocks_table = document.querySelector('#stocks_table');
         if (data.length == 0){
+
+            // Hide the table
+            stocks_table.style.display = "none";
 
             // Placeholder text
             let text = document.createElement("p");
             text.id = "empty_watchlist";
+            text.style.fontSize = "13px";
             text.innerHTML = "No stock in your watchlist.";
 
-            document.querySelectorAll('.ts')[3].append(text);
+            document.querySelectorAll('.ts')[3].insertBefore(text, stocks_table);
         } else {
+
+            // Display the table
+            stocks_table.style.display = "table";
 
             if (document.querySelector("#empty_watchlist") != undefined){
                 document.querySelector("#empty_watchlist").remove();
@@ -941,8 +988,10 @@ function get_watchlist_stocks(){
                 tbody.append(tr);
             }
         }
+        loading("hide");
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error);
     })
 }
@@ -1015,20 +1064,29 @@ function get_active_trades(){
         // Remove table contents first
         document.querySelectorAll('#activetrades_tbody>tr').forEach(el => {el.remove()});
 
+        let active_table = document.querySelector("#activetrades_table");
         // If none
         if (data[0] == undefined){
             
+            // Hide the table
+            active_table.style.display = "none";
+
             if (document.querySelector('#no_active_trade') == undefined){
                 let div = document.createElement("div");
                 div.innerText = "You have no active trade!";
                 div.id = "no_active_trade";
                 div.style.marginBottom = "20px";
+                div.style.fontSize = "13px";
                 document.querySelector("#activetrades_view").insertBefore(div, 
-                    document.querySelector("#activetrades_table").nextElementSibling
+                    active_table.nextElementSibling
                 );
             }
 
         } else {
+
+            // Display the table
+            active_table.style.display = "table";
+
             // Remove message if existent
             if (document.querySelector('#no_active_trade') != undefined){
                 document.querySelector('#no_active_trade').remove();
@@ -1048,7 +1106,7 @@ function get_active_trades(){
                 let button = document.createElement("button");
                 
                 if (Number.isInteger(i / 2) == true){
-                    tr.style.backgroundColor = "rgb(229, 233, 238)";
+                    tr.style.backgroundColor = "rgb(247, 247, 247)";
                 }
                 tr.id = `${data[i].id}_tr`;
                 td1.innerHTML = data[i].symbol;
@@ -1088,84 +1146,109 @@ function get_past_trades(page){
     Displays past trades of the user
     */
 
-    //Clear the fields
+    loading("load");
 
     fetch(`/get_trades/${"past"}/${page}`)
     .then(response => response.json())
     .then(data => {
-        // Clear the table first
-        document.querySelectorAll('#pasttrades_tbody > tr').forEach(el => {
-            el.remove(); 
-            document.querySelector('#stock').scrollIntoView();
-        })
-
-        for (let i = 0; i < data.data.length; i++){
-            
-            let d = data.data[i];
-            let tr = document.createElement("tr");
-            let td1 = document.createElement("td");
-            let td2 = document.createElement("td");
-            let td3 = document.createElement("td");
-            let td4 = document.createElement("td");
-            let td5 = document.createElement("td");
-            let td6 = document.createElement("td");
-            let td7 = document.createElement("td");
-            
-            if (Number.isInteger(i / 2) == true){
-                tr.style.backgroundColor = "rgb(229, 233, 235)";
+        const main_table = document.querySelector('#pasttrades_view table');
+        const view = document.querySelector('#pasttrades_view');
+        if (data.data.length == 0){
+            if (!view.querySelector('#past_placeholder')){
+                let p = document.createElement("p");
+                p.innerText = "You have no past trade."
+                p.style.fontSize = "13px";
+                p.id = "past_placeholder";
+                view.insertBefore(p, view.querySelector('.container-fluid'));
+                main_table.style.display = "none";
+                document.querySelector('#pg2').style.visibility = "hidden";
             }
-            td1.innerHTML = d.symbol;
-            td2.innerHTML = d.company_name;
-            td3.innerHTML = d.shares;
-            td4.innerHTML = `$${d.purchase_price.toFixed(2)}`;
-            td5.innerHTML = `$${d.sell_price.toFixed(2)}`;
-            td6.innerHTML = `$${d.total_in_dollars.toFixed(2)}`;
-            td7.innerHTML = d.when;
-
-            tr.append(td1, td2, td3, td4, td5, td6, td7);
-            document.querySelector("#pasttrades_tbody").append(tr);
-
-            // Update pagination 
-            let previous = document.querySelector('#previous_two');
-            let next = document.querySelector('#next_two');
-            let first = document.querySelector('#one_two');
-            let second = document.querySelector('#two_two');
-            let third = document.querySelector('#three_two');
-            
-            if (data.has_next == false){
-                next.parentElement.className = "page-item disabled";
-                second.parentElement.className = "page-item disabled";
-            } else {
-                next.parentElement.className = "page-item";
-                second.parentElement.className = "page-item";
+        } else {
+            if (view.querySelector('#past_placeholder')){
+                view.querySelector('#past_placeholder').remove();
+                main_table.style.display = "table";
+                document.querySelector('#pg2').style.visibility = "visible";
             }
+            // Clear the table first
+            document.querySelector('#pasttrades_tbody').innerHTML = "";
+            console.log(data.data[0]);
+            for (let i = 0; i < data.data.length; i++){
+                
+                let d = data.data[i];
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
+                let td6 = document.createElement("td");
+                let td7 = document.createElement("td");
+                let td8 = document.createElement("td");
+                
+                if (Number.isInteger(i / 2) == true){
+                    tr.style.backgroundColor = "rgb(247, 247, 247)";
+                }
+                
+                td1.innerHTML = d.symbol;
+                td2.innerHTML = d.company_name;
+                td3.innerHTML = d.shares;
+                td4.innerHTML = `$${d.purchase_price.toFixed(2)}`;
+                td5.innerHTML = `$${d.sell_price.toFixed(2)}`;
+                td6.innerHTML = `$${d.total_in_dollars.toFixed(2)}`;
+                td7.innerHTML = `$${parseFloat((
+                                d.sell_price - d.purchase_price
+                                ) * d.shares).toFixed(2)}`;
+                td8.innerHTML = d.when;
 
-            if (data.has_previous == false){
-                previous.parentElement.className = "page-item disabled";
-            } else {
-                previous.parentElement.className = "page-item";
+                tr.append(td1, td2, td3, td4, td5, td6, td7, td8);
+                document.querySelector("#pasttrades_tbody").append(tr);
+
+                // Update pagination 
+                let previous = document.querySelector('#previous_two');
+                let next = document.querySelector('#next_two');
+                let first = document.querySelector('#one_two');
+                let second = document.querySelector('#two_two');
+                let third = document.querySelector('#three_two');
+                
+                if (data.has_next == false){
+                    next.parentElement.className = "page-item disabled";
+                    second.parentElement.className = "page-item disabled";
+                } else {
+                    next.parentElement.className = "page-item";
+                    second.parentElement.className = "page-item";
+                }
+
+                if (data.has_previous == false){
+                    previous.parentElement.className = "page-item disabled";
+                } else {
+                    previous.parentElement.className = "page-item";
+                }
+
+                if (data.has_second == false){
+                    third.parentElement.className = "page-item disabled";
+                } else {
+                    third.parentElement.className = "page-item";
+                }
+
+                // Update the page dataset
+                previous.dataset.page = parseInt(page) - 1;
+                first.dataset.page = page;
+                second.dataset.page = parseInt(page) + 1;
+                next.dataset.page = parseInt(page) + 1;
+                third.dataset.page = parseInt(page) + 2;
+
+                // Update the innertext
+                first.innerHTML = first.dataset.page;
+                second.innerHTML = second.dataset.page;
+                third.innerHTML = third.dataset.page;
             }
-
-            if (data.has_second == false){
-                third.parentElement.className = "page-item disabled";
-            } else {
-                third.parentElement.className = "page-item";
-            }
-
-            // Update the page dataset
-            previous.dataset.page = parseInt(page) - 1;
-            first.dataset.page = page;
-            second.dataset.page = parseInt(page) + 1;
-            next.dataset.page = parseInt(page) + 1;
-            third.dataset.page = parseInt(page) + 2;
-
-            // Update the innertext
-            first.innerHTML = first.dataset.page;
-            second.innerHTML = second.dataset.page;
-            third.innerHTML = third.dataset.page;
         }
+        loading("hide");
+        document.querySelector('#stock').scrollIntoViewIfNeeded();
     })
     .catch(error => {
+        loading("hide");
+        document.querySelector('#stock').scrollIntoViewIfNeeded();
         display_message("error", error);
     })
 
@@ -1207,6 +1290,7 @@ function sell(){
     /*
     Sell stocks
     */
+    loading("load");
     let total = document.getElementById(`${this.dataset.itemid}-total`).innerText;
     let sell_price = document.querySelector(`#${this.dataset.symbol}-price`).innerText;
 
@@ -1239,10 +1323,12 @@ function sell(){
             update_trading_balance();
 
             // Close view
+            loading("hide");
             document.querySelector('#activetrades_view>div>a').click();
             document.querySelector('#stock').scrollIntoView();
         })
         .catch(error => {
+            loading("hide");
             display_message("error", error);
         })
     })
@@ -1261,4 +1347,30 @@ function undo_format(x){
         }  
     };
     return parseFloat(b);
+}
+
+
+function loading(action){
+    /*
+    Implements loading
+    */
+    let loading = document.querySelector('#loading').style;
+    let welcome = document.querySelector('#welcome').style;
+    let body = document.querySelector('#row').style;
+    let footer = document.querySelector('footer').style;
+    let warning = document.querySelector('#warning').style;
+
+    if (action == "load"){
+        loading.display = "block";
+        welcome.display = "none";
+        body.display = "none";
+        footer.display = "none";
+        warning.display = "none";
+    } else {
+        loading.display = "none";
+        welcome.display = "block";
+        body.display = "block";
+        footer.display = "block";
+        warning.display = "block";
+    }
 }

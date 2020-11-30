@@ -142,7 +142,9 @@ def login_view(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse("myaccounts", args=("main",)))
             else:
-                return render(request, "bankofjosh/login.html")
+                return render(request, "bankofjosh/login.html", {
+                    "error": "Incorrect Username / Password"
+                })
         else:
             return render(request, "bankofjosh/login.html")
 

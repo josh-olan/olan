@@ -143,7 +143,7 @@ function validate(){
             return false;
         }
         // Check if email is valid
-        if (email.value.includes(".com") == false || email.value.includes("@") == false){
+        if (email.value.includes(".") == false || email.value.includes("@") == false){
             display_message("error", "Please enter a valid email address!")
             return false;
         }
