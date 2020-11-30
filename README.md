@@ -1,6 +1,7 @@
 OLAN mail is an emailing system where the user can send emails to other users of the system. The core email funtionality is displayed on a single template with views switched.
 
 FUNCTIONALITIES
+
 Send Emails -> The user can send and receive emails from other users of OLAN mail.
 Mailboxes -> As many known mailboxes, the user is presented with Inbox, Sent and Archive mailboxes.
 Reply mails -> The user can open received mails and can reply to mails.
