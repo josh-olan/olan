@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>{% block title %} Index {% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'bankofjosh/styles.css' %}">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="{% static 'bankofjosh/register.js' %}"></script>
+        <script> csrf = '{{ csrf_token }}' </script>
+        {% block script %} {% endblock %}
+    </head>
+    <body>
+        <div id="navigate_div">
+          <nav class="navbar navbar-expand-lg" id="navigate">
+              <a class="navbar-brand" href="#" id="boj">
+                <!-- source https://www.flaticon.com/free-icon/bank_901388 -->
+                <img src="{% static 'bankofjosh/bank.png' %}" width="40" height="40" class="d-inline-block align-top" alt="icon" loading="lazy">
+                OLAN
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" id="toggler" data-target="#menu_div" aria-controls="menu_div" aria-expanded="false" aria-label="Toggle navigation">
+                <!--https://pnghut.com/download/q5B94AcvqK-->
+                <span class="navbar-toggler-icon">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/menu.png" alt="Menu">
+                </span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="menu_div">
+                <ul class="navbar-nav" id="menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">
+                      <span class="dib">
+                        <img src="https://img.icons8.com/ios/50/000000/home--v1.png" width="25" height="25">
+                      </span>
+                      Home<span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'myaccounts' 'main' %}">
+                        <span class="dib">
+                          <img src="https://img.icons8.com/metro/26/000000/guest-male.png" width="25" height="25">
+                        </span> 
+                        Accounts
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'logout' %}">
+                        <span class="dib">
+                          <img src="https://img.icons8.com/wired/64/000000/logout-rounded-left.png" width="25" height="25">
+                        </span> 
+                        Logout
+                      </a>
+                    </li>
+                  {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'register' %}">
+                        <span class="dib">
+                          <img src="https://img.icons8.com/pastel-glyph/64/000000/create-new--v2.png" width="25" height="25">
+                        </span> 
+                        Create Account
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">
+                        <span class="dib">
+                          <img src="https://img.icons8.com/wired/64/000000/login-rounded-right.png" width="25" height="25">
+                        </span> 
+                        Login
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+          </nav>
+        </div>
+        <p id="warning">Sortcodes and Account numbers are randomly generated and are not real.</p>
+        {% block body %}
+          <div class="container">
+            <div class="container-fluid">
+              <div class="first_content row">
+                <div class="first_right col tac">
+                  <h3 id="bme" class="hide">Banking Made Easy</h3>
+                  <p class="hide">OLAN offers a banking and trading platform.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="container hfc tac mbtpx" id="act_div">
+              <div class="fstpx" id="act_par">
+                <p class="fwsh helv hide">ACCOUNT TYPES</p>
+              </div>
+              <div class="row fsepx">
+                <div class="col acttypes mrf hide">
+                  <img src="{% static 'bankofjosh/savings.png' %}" class="act_icons" alt="savings icon">
+                OLAN Savings
+                </div>
+                <div class="col acttypes mrf hide">
+                  <img src="{% static 'bankofjosh/current.png' %}" alt="current icon" class="act_icons">
+                  OLAN Current
+                </div>
+                <div class="col acttypes hide">
+                  <img src="{% static 'bankofjosh/htb.png' %}" alt="help to buy icon" class="act_icons">
+                  OLAN Help-To-Buy
+                </div>
+              </div>
+            </div>
+
+            <div id="services-section" class="container">
+              <p class="tac fwsh helv fstpx hide">Why us?</p>
+              <div class="row" id="services">
+                <div class="col hide">
+                  <img src="{% static 'bankofjosh/bank-transfer.png' %}" alt="bank online" class="wu hide">
+                  <p>Easy Banking</p>
+                </div>
+                <div class="col hide">
+                  <img src="{% static 'bankofjosh/profit.png' %}" alt="stock trading" class="wu hide">
+                  <p>Stock Trading</p>
+                </div>
+                <div class="col hide">
+                  <img src="{% static 'bankofjosh/bank-online.png' %}" alt="online banking" class="wu hide">
+                  <p>Easy Payments</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid hfc mdz">
+            <div class="row">
+              <div class="col-4" id="stock_img_div">
+                <img src="{% static 'bankofjosh/stock1.png' %}" alt="stock image" class="hide">
+              </div>
+              <div class="col">
+                <div id="rtp_div">
+                  <p id="rtp" class="hide">Real Time Prices!</p>
+                  <p class="fsepx hide">Monitor the market with the Watchlist functionality.</p>
+                  <p class="fsepx hide">Buy and sell shares of stocks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container hfc tac mbtpx" id="mngmnt_div">
+            <div class="mbtpx" id="mngmnt_h">
+              <p class="fwsh helv hide">MANAGEMENT</p>
+            </div>
+            <div class="row">
+              <div class="col ma wfc mbtpx mrf mngmnt_img_div">
+                <img src="{% static 'bankofjosh/man1.jpg' %}" alt="CEO image" class="ma mngmnt_img hide">
+                <p class="fwsh hide">Joshua Olaniyan</p>
+                <p class="mngmnt_p hide"><i>CEO, OLAN Enterprises</i>
+                </p>
+              </div>
+
+              <div class="col ma wfc mbtpx mrf mngmnt_img_div">
+                <img src="{% static 'bankofjosh/man2.jpg' %}" alt="Development manager" class="ma mngmnt_img hide">
+                <p class="fwsh hide">Joshua Olaniyan</p>
+                <p class="mngmnt_p hide"><i>Director of Development and integrations</i>
+                </p>
+              </div>
+
+              <div class="col ma wfc mbtpx mngmnt_img_div">
+                <img src="{% static 'bankofjosh/man3.jpg' %}" alt="Test manager" class="ma mngmnt_img hide">
+                <p class="fwsh hide">Joshua Olaniyan</p>
+                <p class="mngmnt_p hide"><i>Test Manager</i>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        <footer>
+          <div class="footer1">
+            <div class="container">
+              <div class="row">
+                <div class="col tal">
+                  <p>&#169 Copyright OLAN 2020</p>
+                  <p>All rights reserved.</p>
+                  <p>OLAN was developed independently by Joshua Olaniyan.</p>
+                </div>
+                <div class="col tal">
+                  <p><a href="https://icons8.com/icon/73/home">Home icon by Icons8</a></p>
+                  <div>Icons made by 
+                    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
+                    from 
+                    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                  </div>
+                  <br>
+                  <p>Management photos from PxHere.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      {% endblock %}
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" style="display:none;" data-target="#modal1" id="modal_btn">
+        Launch demo modal
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!--Success icon - https://pnghut.com/png/WFR9HWtnN4/check-icon-circle-correct-tick-emblem-sign-transparent-png-->
+            <!--Error icon - https://pnghut.com/png/i7n3Hxjard/error-icon-design-graphical-user-interface-windows-vista-message-transparent-png-->
+            <div class="modal-header" id="modal-header1">
+              <h5 class="modal-title" id="modallabel">
+                <img src="{% static 'bankofjosh/successicon.png' %}" alt="error icon" class="ic d-inline-block">
+                <span>SUCCESS</span>
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modal-body1"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    </body>
+</html>
