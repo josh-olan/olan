@@ -1,0 +1,35 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div class="container-fluid pad2">
+        <h5>Create a new listing</h5>
+
+        <form method="POST" action="{% url 'create' %}" id="create_form">
+            <div class="form-group in">
+                <input type="text" class="form-control" autofocus name="title" placeholder="Enter title" maxlength="30" required>
+            </div>
+            {% csrf_token %}
+            <div class="form-group in">
+                <input type="text" class="form-control" placeholder="Enter listing description" name="description" maxlength="64" required>
+            </div>
+            <div class="form-group in">
+                <input type="number" class="form-control" placeholder="Starting bid" name="bid" min="1" required>
+            </div>
+            <div class="form-group in">
+                <input type="url" class="form-control" placeholder="Enter listing image link" name="imgurl" required>
+            </div>
+            <div class="form-group in">
+                <select name="category" class="form-control" required id="select_cat">
+                    <option value="" disabled selected>Select category</option>
+                    <option value="Home">Home</option>
+                    <option value="General">General</option>
+                    <option value="Cars">Cars</option>
+                    <option value="Electronics">Electronics</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="btn_replace" value="Add listing" required>
+            </div>
+        </form>
+    </div>
+{% endblock %}
