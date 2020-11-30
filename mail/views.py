@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+import random
 
 from .models import User, Email
 
@@ -14,7 +16,7 @@ def index(request):
 
     # Authenticated users view their inbox
     if request.user.is_authenticated:
-        return render(request, "mail/inbox.html")
+        return render(request, "mail/index.html")
 
     # Everyone else is prompted to sign in
     else:
@@ -27,7 +29,9 @@ def compose(request):
 
     # Composing a new email must be via POST
     if request.method != "POST":
-        return JsonResponse({"error": "POST request required."}, status=400)
+        return JsonResponse({
+            "error": "POST request required."
+            }, status=400)
 
     # Check recipient emails
     data = json.loads(request.body)
@@ -69,7 +73,9 @@ def compose(request):
             email.recipients.add(recipient)
         email.save()
 
-    return JsonResponse({"message": "Email sent successfully."}, status=201)
+    return JsonResponse({
+        "message": "Email sent successfully."
+        }, status=201)
 
 
 @login_required
@@ -102,9 +108,14 @@ def email(request, email_id):
 
     # Query for requested email
     try:
-        email = Email.objects.get(user=request.user, pk=email_id)
+        email = Email.objects.get(
+            user=request.user, 
+            pk=email_id
+            )
     except Email.DoesNotExist:
-        return JsonResponse({"error": "Email not found."}, status=404)
+        return JsonResponse({
+            "error": "Email not found."
+            }, status=404)
 
     # Return email contents
     if request.method == "GET":
@@ -153,6 +164,12 @@ def logout_view(request):
 
 
 def register(request):
+
+    # Random colour generator
+    a = random.randint(0, 256)
+    b = random.randint(0, 256)
+    c = random.randint(0, 256)
+
     if request.method == "POST":
         email = request.POST["email"]
 
@@ -167,6 +184,9 @@ def register(request):
         # Attempt to create new user
         try:
             user = User.objects.create_user(email, email, password)
+            user.first_name = request.POST["firstname"].capitalize()
+            user.last_name = request.POST["lastname"].capitalize()
+            user.background_color = f"rgb({a}, {b}, {c})"
             user.save()
         except IntegrityError as e:
             print(e)
@@ -177,3 +197,57 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "mail/register.html")
+
+
+@require_POST
+@login_required
+def search(request):
+
+    # Get the search parameter
+    data = json.loads(request.body)
+    parameter = data.get("parameter")
+    filter_val = data.get("filter")
+    mailbox = data.get("mailbox")
+    mails = []
+
+    if mailbox == "inbox" or mailbox == "compose":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, archived=False
+        ).order_by("-timestamp")
+
+    elif mailbox == "sent":
+        emails = Email.objects.filter(
+            user=request.user, sender=request.user
+        ).order_by("-timestamp")
+
+    elif mailbox == "archive":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, archived=True
+        ).order_by("-timestamp")
+    else:
+        return JsonResponse({"error": "Invalid mailbox."}, status=400)
+    
+    emails = [email.serialize() for email in emails]
+    
+    parameter = parameter.lower()
+
+    # If filter value is Email body
+    if filter_val == "body":
+        for mail in emails:
+            if parameter in mail["body"].lower() or parameter in mail["subject"]:
+                mails.append(mail)
+    
+    # If filter value is Email sender
+    elif filter_val == "sender":
+        for mail in emails:
+            if parameter in mail["sender_name"].lower():
+                mails.append(mail)
+    
+    # If filter value is in Email recipients
+    else:
+        for mail in emails:
+            if parameter in mail["recipients"]:
+                mails.append(mail)
+
+    return JsonResponse(mails, safe=False)
+

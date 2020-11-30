@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    background_color = models.CharField(max_length=17)
 
 
 class Email(models.Model):
@@ -20,10 +20,13 @@ class Email(models.Model):
         return {
             "id": self.id,
             "sender": self.sender.email,
+            "sender_name": f"{self.sender.first_name} {self.sender.last_name}",
+            "recipients_names": [f"{user.first_name} {user.last_name}" for user in self.recipients.all()],
             "recipients": [user.email for user in self.recipients.all()],
             "subject": self.subject,
             "body": self.body,
-            "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
+            "timestamp": self.timestamp.strftime("%I:%M %p, %b %d %Y"),
             "read": self.read,
-            "archived": self.archived
+            "archived": self.archived,
+            "background_color": self.sender.background_color
         }
