@@ -27,9 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'olan-app.herokuapp.com'
+]
 
 # API KEY for the Stock Exchange API
 IEX_API_KEY = os.environ.get('IEX_API_KEY')
