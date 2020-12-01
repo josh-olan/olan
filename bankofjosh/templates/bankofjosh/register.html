@@ -1,0 +1,70 @@
+{% extends 'bankofjosh/index.html' %}
+{% load static %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <form method="POST" action="{% url 'register' %}" id="register_form">
+        {% csrf_token %}
+        <div class="w3-animate-left authen" id="register_first">
+            <p>REGISTER</p>
+            <hr>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" class="form-control" id="firstname" autofocus minlength="1" name="firstname">
+                </div>
+                <div class="form-group col">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" class="form-control" id="lastname" minlength="1" name="lastname">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" minlength="1" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" minlength="1" name="email">
+            </div>
+        </div>
+
+        <div class="w3-animate-left authen" id="register_second">
+            <p>REGISTER</p>
+            <hr>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" minlength="4">
+            </div>
+            <div class="form-group">
+                <label for="confirmation">Re-enter password</label>
+                <input type="password" class="form-control" id="confirmation" minlength="4">
+            </div>
+            <div class="form-group">
+                <label for="recover_dropdown">Select security question</label>
+                <select name="recover_question" id="recover_dropdown" class="form-control" required>
+                    <option value=""></option>
+                    <option value="maiden">What is your mother's maiden name?</option>
+                    <option value="city">What city were you born?</option>
+                    <option value="place">What was your favorite place to visit as a child?</option>
+                    <option value="movie">What is your favourite movie?</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="recover" name="recover_answer" placeholder="Answer" maxlength="25" required>
+            </div>
+        </div>
+
+        <div id="register_div">
+            <button type="button" class="btn_replace" id="register_button">Next</button>
+        </div>
+    </form>
+
+    <div id="login_create">
+        <p>Already have an account? <span><u><a href="{% url 'login' %}">Login.</a></u></span></p>
+    </div>
+{% endblock %}
