@@ -102,9 +102,9 @@ DATABASES = {
 
         'PASSWORD': os.environ['PASSWORD'],
 
-        'HOST': 'localhost',
+        'HOST': os.environ['HOST'],
 
-        'PORT': '5433',
+        'PORT': os.environ['PORT'],
     }
 }
 
