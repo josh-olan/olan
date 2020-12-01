@@ -36,9 +36,6 @@ ALLOWED_HOSTS = [
     'olan-app.herokuapp.com',
 ]
 
-# API KEY for the Stock Exchange API
-IEX_API_KEY = os.environ.get('IEX_API_KEY')
-
 # Application definition
 
 INSTALLED_APPS = [
