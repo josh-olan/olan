@@ -102,7 +102,7 @@ DATABASES = {
 
         'PASSWORD': os.environ['PASSWORD'],
 
-        'HOST': 'localhost',
+        'HOST': 'olan-app.herokuapp.com',
 
         'PORT': '5433',
     }
