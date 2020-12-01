@@ -1,6 +1,3 @@
-1)  Install Python Decouple by running --> pip install python-decouple
-    Create a '.env' file in 'bankofjosh' directory.
-    Get an API key from https://iexcloud.io/
-    Create a key called 'IEX_API_KEY' in the '.env' file and set the value to the API key; see '.env_sample'.
-
-2) In the cmd, run 'python manage.py makemigrations bankofjosh'.
+django
+python-decouple
+psycopg2-binary
