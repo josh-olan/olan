@@ -31,7 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'olan-app.herokuapp.com',
-    '127.0.0.1'
 ]
 
 # API KEY for the Stock Exchange API
