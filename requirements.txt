@@ -1,3 +1,4 @@
 django
 python-decouple
 psycopg2-binary
+django-environ==0.4.5
