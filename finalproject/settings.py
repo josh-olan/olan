@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import environ
 environ.Env.read_env()
+import dj_database_url
+import dotenv
 from pathlib import Path
 from decouple import config
 
@@ -50,8 +52,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,6 +93,14 @@ DATABASES = {
     }
 }
 """
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+"""
 DATABASES = {
 
     'default': {
@@ -108,7 +118,7 @@ DATABASES = {
         'PORT': os.environ['PORT'],
     }
 }
-
+"""
 
 AUTH_USER_MODEL = "bankofjosh.User"
 
