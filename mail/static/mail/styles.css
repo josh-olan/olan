@@ -1,0 +1,521 @@
+@keyframes shake{
+    0% {
+        transform: scale(1.2, 1.2);
+    }
+    25% {
+        transform: scale(1.4, 1.4);
+    }
+    50% {
+        transform: scale(1.6, 1.6);
+    }
+    75% {
+        transform: scale(1.2, 1.2);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+@keyframes slide{
+    0% { 
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    50% { 
+        transform: translateX(-100px);
+        opacity: 0.5;
+    }
+    100% { 
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes flaunt{
+    0% {
+        transform: translate(0px);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(250px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+    75% {
+        transform: rotate(270deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(500px);
+        opacity: 0;
+    }
+}
+@keyframes loading{
+    0% {transform: scale(0.9,0.9); margin-right: -5px; opacity: 0.2;}
+    50% {transform: scale(1.2, 1.2); margin-right: -3px;}
+    80% {transform: scale(1.1, 1.1); margin-right: -4px;}
+    100% {transform: scale(1.0,1.0); margin-right: -5px;}
+}
+@keyframes slow_display{
+    from {opacity: 0; width: 0%;}
+    to {opacity: 1; width: 50%;}
+}
+@keyframes display_search{
+    from {opacity: 0; height: 0;}
+    to {opacity: 1; height: initial;}
+}
+
+#container{
+    margin: auto;
+    min-width: fit-content;
+    padding-top: 150px;
+}
+.anime{
+    animation: shake 600ms ease-in-out 2s 1 normal forwards;
+}
+.slide{
+    animation: slide 200ms ease-in-out forwards;
+}
+.flaunt{
+    animation: flaunt 2s ease-in 1 forwards;
+}
+.loading{
+    animation: loading 2s ease-in-out infinite forwards;
+}
+.sd{
+    animation: slow_display 200ms ease-out forwards;
+}
+.ds{
+    animation: display_search 200ms forwards;
+}
+
+/* Navigation */
+#nav{
+    margin: 0; 
+    background-image: linear-gradient(to right, rgb(59, 122, 238), rgb(111, 156, 240));
+    color: white;
+    padding-top: 10px; 
+    padding-left: 10px;
+}
+#nav img{
+    display: inline-block; 
+    margin-bottom: 10px;
+}
+#nav h4{
+    display: inline-block;
+}
+#nav div{
+    float: right;
+    width: fit-content;
+    margin-right: 13px;
+}
+
+.error_msg{
+    display: block;
+    text-align: center;
+    color: red;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+#search_field, #search_button, #search_filter{
+    border: none;
+    border-radius: 2px;
+    height: 35px;
+    display: inline-block;
+    vertical-align: bottom;
+    outline: none;
+}
+#search_field{
+    border: 1px solid rgb(168, 168, 168);
+    width: 400px;
+    padding-left: 10px;
+}
+#search_field::placeholder{
+    font-size: 13px;
+}
+#search_button, #compose-submit{
+    padding-right: 40px;
+    padding-left: 40px;
+    background-image: linear-gradient(to bottom, rgb(138, 172, 236), cornflowerblue);
+    border-radius: 5px;
+    color: white;
+}
+#search_button:hover, #compose-submit:hover{
+    background-image: linear-gradient(to bottom, rgb(160, 187, 236), rgb(141, 173, 233));
+}
+#search_div{
+    width: fit-content;
+    margin: auto;
+    margin-top: 17px;
+}
+#search_filter{
+    border: 1px solid rgb(168, 168, 168);
+    font-size: 13px;
+}
+#open-view{
+    background-color: white;
+    padding: 5px;
+    height: 500px;
+}
+#open-view *{
+    font-size: 14px;
+}
+textarea {
+    min-height: 400px;
+}
+#emails-view, #compose-view, #open-view{
+    margin: auto;
+    border: 1px solid rgb(224, 224, 224);
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+}
+#compose-view > div, #emails-view>div, #open-view>div{
+    overflow-y: scroll;
+    height: inherit;
+}
+#compose-form{
+    margin: auto;
+    margin-right: 10px;
+}
+#submit_div{
+    margin-top: 10px;
+    text-align: left;
+}
+#compose-submit{
+    border: none;
+    height: 35px;
+    outline: none;
+}
+#compose_recipients, #compose-subject, #compose-body{
+    border: none;
+    border: 1px solid rgb(214, 214, 214);
+}
+
+/*
+#emails-view .get_mail{
+    border: 1px solid lightskyblue;
+    font-family: sans-serif;
+    padding-left: 10px;
+    padding-top: 5px;
+    height: fit-content;
+    line-height: 120%;
+    margin-bottom: 2px;
+    min-width: fit-content;
+}
+#emails-view .get_mail :hover{
+    background-color: rgb(158, 187, 240);
+}*/
+.unread span{
+    font-weight: 700;
+}
+.unread{
+    border-left: 3px solid blue;
+    padding-left: 7px;
+}
+.unread #left_img{
+    margin-left: 2px;
+}
+#sender{
+    font-size: 17px;
+}
+#subject{
+    font-size: 15px;
+}
+#inbox_body{
+    font-size: 13px;
+    overflow: hidden;
+}
+#timestamp{
+    position: absolute;
+    right: 0;
+    padding-right: 5px;
+    font-size: 15px;
+}
+.content{
+    font-family: sans-serif;
+}
+
+/* Styling Register and Login view*/
+.log_reg_view{
+    border: 1px solid lightskyblue;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 50%;
+    margin: auto;
+    top: 50%;
+}
+.inp{
+    border: none;
+    border-bottom: 1px solid rgb(186, 193, 201);
+    margin-bottom: 10px;
+    background-image: linear-gradient(to bottom, white, rgb(224, 230, 235));
+}
+.log_reg_view h2{
+    text-align: center;
+    margin-bottom: 15px;
+}
+.container .extra{
+    margin-top: 20px !important;
+    text-align: center;
+}
+.log_reg_view input{
+    width: 100%;
+}
+#mail_icon_cont{
+    width: 50%;
+    margin: auto;
+}
+/* Styling the main view */
+body{
+    position: relative;
+    min-width: fit-content;
+    background-image: linear-gradient(to right, white, rgb(242, 247, 248)) !important;
+}/*
+#menu_icon{
+    display: none;
+}*/
+#menu_icon img{
+    margin-left: 5px;
+}
+#container-fluid{
+    padding-left: 40px;
+    padding-right: 40px;
+    z-index: -1;
+}
+#left{
+    height: fit-content;
+    padding: 0;
+    width: 70px;
+    margin-right: 20px;
+    margin-left: 15px;
+    min-width: fit-content;
+}
+#ul{
+    min-width: fit-content;
+    padding: 0;
+    list-style-type: none;
+    border: 1px solid rgb(224, 224, 224);
+    background-color: white;
+    box-shadow: 3px 3px 7px rgb(230, 230, 230), -3px -3px 7px rgb(230, 230, 230);
+}
+#ul li{
+    min-width: 100px;
+    height: 40px;
+    padding-right: 3px;
+    padding-top: 8px;
+    padding-left: 5px;
+}
+#ul a{
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+#ul li:hover{
+    background-color:rgb(232, 233, 235);
+}
+
+
+.left_side, .right_side{
+    padding: 0;
+    width: fit-content;
+}
+.left_side{
+    text-align: left;
+    min-width: 300px;
+}
+#left_img{
+    padding-top: 2px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+    margin-top: 15px;
+}
+#left_img_holder{
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    width: 26px;
+    min-width: fit-content;
+    height: 100%;
+}
+.right_side{
+    text-align: right;
+    min-width: fit-content;
+}
+.each_mail:hover{
+    background-color:rgb(232, 233, 235);
+}
+.each_mail{
+    line-height: 110%;
+    border-bottom: 1px solid lightgray;
+    padding: 0;
+    padding-bottom: 5px;
+    height: fit-content;
+    margin-bottom: 5px;
+}
+.sender{
+    font-weight: 600;
+}
+.subject{
+    font-size: 13px;
+}
+.i_content{
+    font-size: 12px;
+    color: rgb(141, 141, 141);
+}
+.timestamp{
+    font-size: smaller;
+}
+
+/* Loading view */
+#loading{
+    z-index: 10; 
+    position: absolute; 
+    width: 100%; 
+    text-align: center; 
+    font-size: 20px; 
+    font-weight: 600;
+}
+#loading div{
+    width: fit-content;
+    display: inline-block;
+    margin-right: -5px;
+}
+
+/* Menu view */
+#menu_view{
+    display: none;
+    position: absolute; 
+    z-index: 20; 
+    top: 55px; 
+    background-color: white; 
+    min-width: 50vw; 
+    width: 60%; 
+    height: 100%;
+    right: 0;
+    background-image: linear-gradient(to bottom,rgb(85, 137, 233), rgb(151, 182, 240));
+}
+#menu_view > ul{
+    list-style-type: none;
+    width: fit-content;
+    margin: auto;
+    padding-left: 0;
+}
+#menu_view a, #menu_view p{
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+#menu_view li{
+    margin-bottom: 10px;
+}
+#menu_profile{
+    text-align: center; 
+    margin-top: 10vh;
+}
+
+
+/* RESPONSIVENESS */
+@media screen and (max-width: 991px){
+    .log_reg_view{
+        width: 70%;
+    }
+}
+@media screen and (max-width:768px){
+    .log_reg_view{
+        width: 80%;
+    }
+    .flaunt{
+        display: none;
+    }
+}
+@media screen and (max-width: 518px){
+    .log_reg_view{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1000px){
+    #emails-view{
+        min-width: 514px;
+    }
+    #left{
+        display: none;
+    }
+    #container-fluid>div>h6{
+        display: none;
+    }
+    #search_div{
+        margin-bottom: 15px;
+    }
+}
+@media screen and (max-width: 739px){
+    #search_field{
+        width: 300px;
+    }
+}
+@media screen and (max-width: 638px){
+    #search_button{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    #search_div{
+        margin-bottom: -10px;
+    }
+    #search_field, #search_button, #search_filter{
+        height: 25px;
+        width: 100%;
+        margin-bottom: 3px;
+    }
+    #emails-view, #compose-view, #open-view{
+        margin-top: 30px;
+    }
+}
+@media screen and (max-width: 585px){
+    #container-fluid{
+        padding-left: 0;
+        padding-right: 0;
+        margin: auto;
+        width: 90vw;
+    }
+    #emails-view, #compose-view, #open-view{
+        padding-left:5px;
+        padding-right: 5px;
+        width: 85vw;
+        box-sizing: border-box;
+    }
+    #emails-view{
+        min-width: fit-content;
+    }
+}
+@media screen and (max-width: 447px){
+    .right_side{
+        text-align: left;
+        margin-left:34px;
+    }
+    .timestamp{
+        font-size: 11px;
+        color: rgb(148, 148, 148);
+    }
+}
+@media screen and (max-width: 359px){
+    .left_side{
+        min-width: fit-content;
+    }
+}
+@media screen and (max-width: 305px){
+    #nav img{
+        height: 25px;
+        width: 25px;
+    }
+    #menu_view{
+        top: 48px;
+    }
+}
