@@ -24,7 +24,7 @@ body{
     position: absolute; 
     bottom: 0; 
     width: 100%;
-    border-top: 1px solid lightgray;
+    border-top: 1px solid lightgrey;
     background-color: rgb(252, 252, 252);
     height: 120px;
 }
@@ -58,6 +58,9 @@ body{
     padding-bottom: 20px;
     margin-bottom: 20px;
     box-shadow: 4px 4px 10px lightgray;
+}
+#h1, #h2, #signed_div, .nav li a{
+    color:white;
 }
 .pad{
     padding-left: 5vw !important; 
@@ -156,7 +159,6 @@ label{
     margin-top: 5px;
 }
 .nav li a{
-    color: black;
     font-size: 14px;
     font-weight: 600;
     text-decoration: underline;
@@ -173,18 +175,6 @@ label{
 }
 #h1 span{
     margin-right: -7px;
-}
-#h1 >span:nth-child(1){
-    color: rgb(114, 51, 51);
-}
-#h1 >span:nth-child(2){
-    color: rgb(41, 83, 41);
-}
-#h1 >span:nth-child(3){
-    color: rgb(44, 44, 133);
-}
-#h1 >span:nth-child(4){
-    color:rgb(121, 57, 37);
 }
 .r_div{
     width: 25vw;
@@ -218,7 +208,6 @@ body #h2{
 }
 #search_div span{
     display: inline-block;
-    border: 2px solid lightgray;
     vertical-align: top;
 }
 #search_div span:nth-child(1){
@@ -228,7 +217,7 @@ body #h2{
 #search_div button{
     font-size: 14px;
     color: white;
-    background-image: linear-gradient(to bottom, rgb(189, 189, 189), rgb(138, 138, 138));
+    background-image: linear-gradient(to bottom, #00CC33, #009900);
     border: none;
     height:38px;
     width: 80px;
@@ -264,16 +253,16 @@ body > div:nth-child(2){
     font-size: small;
     font-weight: 600;
     border: none;
-    color: white;
+    color: black;
     padding-top: 3px;
     padding-bottom: 3px;
     padding-right: 20px;
     padding-left: 20px;
-    background-image: linear-gradient(to bottom, #00CC33, #009900);
+    background-image: linear-gradient(to top, goldenrod, orange);
 }
 .btn2:hover{
     text-decoration: none;
-    color: white;
+    color: black;
     background-image: linear-gradient(to bottom, #99FF33, #33FF33);
 }
 .each_item > div{
