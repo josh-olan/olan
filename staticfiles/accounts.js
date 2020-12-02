@@ -1281,7 +1281,7 @@ function currency_converter(currency, number, area){
     /*
     Converts prices from GBP to USD and vice versa
     */
-
+    loading("load");
     /* https://exchangeratesapi.io*/
     fetch(`https://api.exchangeratesapi.io/latest?base=${currency}&symbols=USD,GBP`)
     .then(response => response.json())
@@ -1301,8 +1301,10 @@ function currency_converter(currency, number, area){
                 document.querySelector('#td-bal').innerText = `$${val}`;
             }
         }
+        loading("hide");
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error);
     })
 }
