@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let footer = document.querySelector('.footer1');
         let header = document.querySelector('#navigate');
         if (footer != null){
-            footer.style.backgroundColor = "rgb(6, 95, 122)";
+            footer.style.backgroundColor = "rgb(0, 108, 216)";
             footer.style.color = "white";
         }
-        header.style.backgroundColor = "whitesmoke";
+        header.style.backgroundColor = "white";
         document.querySelector('#boj').style.color = "black";
         document.querySelectorAll('#menu li a').forEach(el => {
             el.style.color = "black";
