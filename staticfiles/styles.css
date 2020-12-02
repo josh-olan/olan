@@ -286,12 +286,6 @@ thead{
 #stock{
     margin-bottom: 30px;
 }
-#warning{
-    text-align: center;
-    animation: show_text forwards 2s infinite;
-    color: red;
-    font-size: small;
-}
 body{
     background-color: white;
 }
@@ -304,10 +298,10 @@ body{
     font-size: 12px;
     padding: 10px;
     position: relative;
-    background-color: whitesmoke;
+    background-color: #888888;
     /*background-image: linear-gradient(to top, white, whitesmoke);*/
     width: 100%!important;
-    color: black;
+    color: white;
     border-top: 1px solid lightgray;
     text-align: center;
     margin-top: 25px;
@@ -325,7 +319,7 @@ body{
     z-index: 1;
 }
 #navigate{
-    background-color: whitesmoke;
+    background-color: #888888;
     color: black;
 }
 #navigate_div{
@@ -345,9 +339,10 @@ body{
     padding-top: 25px;
     font-weight: 600;
     font-family: sans-serif;
+    color: white;
 }
 #menu li a:hover{
-    background-color: rgb(174, 216, 226);
+    background-color:rgb(190, 225, 243);
     font-family: Helvetica;
     font-size: 16px;
     color: black;
@@ -424,6 +419,7 @@ label{
 #boj{
     font-size: 25px;
     font-weight: bold;
+    color: white;
 }
 
 img{

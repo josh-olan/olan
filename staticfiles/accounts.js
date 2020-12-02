@@ -1358,19 +1358,16 @@ function loading(action){
     let welcome = document.querySelector('#welcome').style;
     let body = document.querySelector('#row').style;
     let footer = document.querySelector('footer').style;
-    let warning = document.querySelector('#warning').style;
 
     if (action == "load"){
         loading.display = "block";
         welcome.display = "none";
         body.display = "none";
         footer.display = "none";
-        warning.display = "none";
     } else {
         loading.display = "none";
         welcome.display = "block";
         body.display = "block";
         footer.display = "block";
-        warning.display = "block";
     }
 }

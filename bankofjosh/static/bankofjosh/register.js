@@ -347,7 +347,7 @@ function change_menu_style(){
     Change the styling of the menu text
     */
     //document.querySelector('#menu').style.color = "white";
-    document.querySelector('#menu').style.backgroundColor = "whitesmoke";
+    document.querySelector('#menu').style.backgroundColor = "#888888";
     document.querySelectorAll('#menu>li').forEach(e => {
         e.style.textAlign = "center";
     })
