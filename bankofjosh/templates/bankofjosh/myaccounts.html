@@ -1,0 +1,498 @@
+{% extends 'bankofjosh/index.html' %}
+{% load static %}
+
+{% block script %}
+    <script>key= '{{ key }}' </script>
+    <script src="{% static 'bankofjosh/accounts.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    My Accounts
+{% endblock %}
+
+{% block body %}
+    <p id="welcome">Welcome back, {{ data.firstname }}.</p>
+    <div class="container-fluid" id="row">
+        <div>
+            <div id="myaccounts">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-display="1">My accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-display="2">Send money</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-display="3">Add account</a>
+                    </li>
+                </ul>
+
+                <div class="content_view">
+                    <div id="accounts_view" data-display="1">
+
+                        <div class="container-fluid" id="accounts_container">
+                            
+                            {% for account in data.accounts %}
+                                
+                                {% if account != None and account.account_type != "trading" %}
+                                        <div class="each_account_holder">
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Click to view transactions" id="each_account">
+                                                <div class="row" id="account-row">
+                                                    <div class="col-md-auto">
+                                                        <img src="{% static 'bankofjosh/bank.png' %}" width="40" height="40" alt="icon">
+                                                    </div>
+                                                    <div class="col-11">
+                                                        {% if account.account_type == 'current' %}
+                                                            <p id="account-type" data-type="{{ account.account_type }}">OLAN CURRENT</p>
+                                                        {% elif account.account_type == 'savings' %}
+                                                            <p id="account-type" data-type="{{ account.account_type }}">OLAN SAVINGS</p>
+                                                        {% else %}
+                                                            <p id="account-type" data-type="{{ account.account_type }}">OLAN Help-To-Buy</p>
+                                                        {% endif %}
+                                                        <p id="account-amount">£{{ account.balance|floatformat:2 }}</p>
+                                                        <small>Available Balance| <span id="sc">
+                                                            {% for number in account.sort_code|stringformat:"i" %}
+                                                                {% if forloop.counter0 == 2 or forloop.counter0 == 4 %}
+                                                                    -
+                                                                {% endif %}
+                                                                    {{number}}
+                                                            {% endfor %}
+                                                            </span>&nbsp;
+                                                            <span>{{ account.account_number }}</span>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </div>
+                        <div class="transactions_view">
+
+                            <div class="col-md-auto">
+                                <p></p>
+                                <div class="ts">
+                                    <table class="table table-striped" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>From / To</th>
+                                                <th>Amount</th>
+                                                <th>Description</th>
+                                                <th>Balance</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col" id="trans_back">
+                                        <a href="#" data-display="1" class="back">Back</a>
+                                    </div>
+                                    <div id="pg" class="col">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination" id="pagination_one">
+                                                <li class="page-item disabled"><a class="page-link" href="#" data-page="previous" id="previous">Previous</a></li>
+                                                <li class="page-item active"><a class="page-link" href="#" data-page="1" id="one">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" data-page="2" id="two">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" data-page="3" id="three">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" data-page="next" id="next">Next</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sendmoney_view" data-display="2">
+
+                            {% csrf_token %}
+                            <div class="sendfrom_view w3-animate-right">
+                                <div id="xo">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" value="between" id="between" name="transfer" checked>
+                                        <label for="between" class="form-check-label">Transfer between accounts</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" value="external" id="external" name="transfer">
+                                        <label for="external" class="form-check-label">Transfer to an external account</label>
+                                    </div>
+                                    <hr class="hr">
+                                    <button class="btn_replace">Next</button>
+                                </div>
+                            </div>
+
+                        <div class="between_accounts_view w3-animate-right">
+
+                            <form id="between_accounts_form">
+                                <div id="xo">
+                                    <label>Send from:</label>
+                                    <select class="form-control" id="from" required>
+                                        {% for account in data.accounts %}
+                                            {% if account != None and account.account_type != "trading"%}
+                                                <option value="{{ account.account_type }}">
+                                                    {% if account.account_type == 'savings' %}
+                                                        OLAN SAVINGS
+                                                    {% elif account.account_type == 'current' %}
+                                                        OLAN CURRENT
+                                                    {% else %}
+                                                        OLAN Help-To-Buy
+                                                    {% endif %}
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <br>
+                                    <label>Send to:</label>
+                                    <select class="form-control" id="to"></select>
+                                    <div class="form-group">
+                                        <input type="number" placeholder="Amount"  class="form-control" min="1" id="btwn_amount" required>
+                                    </div>
+                                    <div id="send_bottom_div">
+                                        <a href="#" class="back" data-display="2" data-index="1">Back</a>
+                                        <span>
+                                            <button class="btn_replace r" id="transfer_btn">Transfer</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="external_account_view w3-animate-right">
+                            <form id="transfer_external_form">
+                                <div id="xo">
+                                    <p id="xop">RECIPIENT'S DETAILS</p>
+                                    <hr class="hr">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="rfirstname">First name</label>
+                                            <input type="text" name="rfirstname" id="rfirstname" class="form-control" autofocus required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="rlastname">Last name</label>
+                                            <input type="text" name="rlastname" id="rlastname" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="number" name="rsortcode" id="rsortcode" class="form-control" placeholder="Sortcode" required> 
+                                        </div>
+                                        <div class="col">
+                                            <input type="number" name="raccountnumber" id="raccountnumber" class="form-control" placeholder="Account number" required>
+                                        </div>
+                                    </div>
+                                    <input type="number" name="ramount" id="ramount" class="form-control" placeholder="Amount" min="1" required>
+                                    <input type="text" name="description" class="form-control" placeholder="Description" maxlength="10" id="description" required>
+                                    <div class="form-group">
+                                        <label for="from_account">From:</label>
+                                        <select class="form-control" id="from_account" required>
+                                            {% for account in data.accounts %}
+                                                {% if account != None and account.account_type != "trading"%}
+                                                    <option value="{{ account.account_type }}">
+                                                        {% if account.account_type == 'savings' %}
+                                                            OLAN SAVINGS
+                                                        {% elif account.account_type == 'current' %}
+                                                            OLAN CURRENT
+                                                        {% else %}
+                                                            OLAN Help-To-Buy
+                                                        {% endif %}
+                                                    </option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div id="send_bottom_div">
+                                        <a href="#" class="back" data-display="2" data-index="2">Back</a>
+                                        <span>
+                                            <button class="btn_replace" type="submit"id="send_btn">Send</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div id="addaccounts_view" data-display="3">
+                        <form action="{% url 'addaccount' %}" method="POST">
+                            {% csrf_token %}
+                            <div id="xo" class="w3-animate-right">
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="accounts" id="savings" value="savings" checked>
+                                    <label for="savings" class="form-check-label">OLAN SAVINGS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="accounts" id="current" value="current">
+                                    <label for="current" class="form-check-label">OLAN CURRENT</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="accounts" class="form-check-input" id="help-to-buy" value="htb">
+                                    <label for="help-to-buy" class="form-check-label">OLAN help-to-buy</label>
+                                </div>
+                                <hr class="hr">
+                                <button type="submit" class="btn_replace">Add account</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+        <div id="stock">
+            <p class="hs">TRADING BALANCE: 
+                {% for account in data.accounts %}
+                    {% if account.account_type == "trading" %}
+                        <span id="td-bal">${{ account.balance }}</span>
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <button type="button" class="bs3">Deposit</button>
+            <button type="button" class="bs3">Withdraw</button>
+            <button type="button" class="bs">Place Trade</button>
+            <button type="button" class="bs">Active Trades</button>
+            <button type="button" class="bs" data-page="1">Past trades</button>
+            <div id="stockview_button_options">
+                <div id="deposit_view">
+                    <label for="stock_dropdown1">Deposit account <b>(£)</b>:</label>
+                    <form id="deposit_form">
+                        <div class="sbo_div">
+                            <div>
+                                <select class="form-control" id="stock_dropdown1" required>
+                                    {% for account in data.accounts %}
+                                        {% if account != None and account.account_type != "trading"%}
+                                            <option value="{{ account.account_type }}">OLAN {{ account.account_type|upper }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <input type="number" placeholder="Amount" class="form-control" id="deposit_amount" min="1" maxlength="6" required>
+                            </div>
+                            <div class="row">
+                                <div class="col close_btns">
+                                    <a href="#" id="close" data-view="deposit_view"><p>Close</p></a>
+                                </div>
+                                <div class="col" id="btn_right">
+                                    <button type="submit" class="bs2">Add money</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="withdrawal_view">
+                    <label for="stock_dropdown2">Withdraw to <b>($)</b>:</label>
+                    <form id="withdrawal_form">
+                        <div class="sbo_div">
+                            <div>
+                                <select class="form-control" id="stock_dropdown2" required>
+                                    {% for account in data.accounts %}
+                                        {% if account != None and account.account_type != "trading" %}
+                                            <option value="{{ account.account_type }}">OLAN {{ account.account_type|upper }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <input type="number" placeholder="Amount" class="form-control" id="withdrawal_amount" maxlength="6" min="1" required>
+                            </div>
+                            <div class="row">
+                                <div class="col close_btns">
+                                    <a href="#" id="close" data-view="withdrawal_view"><p>Close</p></a>
+                                </div>
+                                <div class="col" id="btn_right">
+                                    <button type="submit" class="bs2">Withdraw</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="placetrade_view">
+                    <label for="stock_dropdown2">Stock</label>
+                    <form id="placetrade_form">
+                        <div class="sbo_div">
+                            <div>
+                                <input type="text" class="form-control" id="placetrade_stock" required>
+                            </div>
+                            <div>
+                                <input type="number" placeholder="Number of shares" id="placetrade_shares" min="1" class="form-control" required>
+                            </div>
+                            <div class="row">
+                                <div class="col close_btns">
+                                    <a href="#" id="close" data-view="placetrade_view"><p>Close</p></a>
+                                </div>
+                                <div class="col" id="btn_right">
+                                    <button type="submit" class="bs2">Buy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="activetrades_view" class="ts">
+                    <p class="hs">ACTIVE TRADES</p>
+                    <table class="table fxt" id="activetrades_table">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Company name</th>
+                                <th>Purchase Price</th>
+                                <th>Current Price</th>
+                                <th></th>
+                                <th>No of shares</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="activetrades_tbody"></tbody>
+                    </table>
+                    <div class="col close_btns">
+                        <a href="#" id="close" data-view="activetrades_view"><p>Close</p></a>
+                    </div>
+                </div>
+                <div id="pasttrades_view" class="ts">
+                    <p class="hs">PAST TRADES</p>
+                    <table class="table fxt">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Company name</th>
+                                <th>Shares</th>
+                                <th>Purchase Price</th>
+                                <th>Amount at sale</th>
+                                <th>Total</th>
+                                <th>Profit</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pasttrades_tbody"></tbody>
+                    </table>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col close_btns">
+                                <a href="#" id="close" data-view="pasttrades_view"><p>Close</p></a>
+                            </div>
+                            <div class="col" id="pg2">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination" id="pagination_two">
+                                      <li class="page-item"><a class="page-link" href="#" id="previous_two">Previous</a></li>
+                                      <li class="page-item  active"><a class="page-link" href="#" id="one_two">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#" id="two_two">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#" id="three_two">3</a></li>
+                                      <li class="page-item"><a class="page-link" href="#" id="next_two">Next</a></li>
+                                    </ul>
+                                  </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="watchlist_section">
+                <hr class="hr">
+                    <div>
+                        <p class="hs">ADD TO WATCHLIST</p>
+                        <form id="watchlist_form">
+                            <div class="container-fluid">
+                                <div class="row" id="aw_cont">
+                                    <div id="watch_input" class="col">
+                                        <input type="text" class="form-control" placeholder="Stock" id="watchlist_stock" required>
+                                    </div>
+                                    <div class="col" id="aw_div">
+                                        <button type="submit">Add to watchlist</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <hr class="hr">
+            </div>
+            <div class="container-fluid">
+                <div class="row" id="w_header_par">
+                    <div class="col w_header">
+                        <h6 class="hs" id="wtext">WATCHLIST</h6>
+                    </div>
+                    <div class="col wsmall">
+                        <small>(Maximum 5 stocks.)</small>
+                    </div> 
+                </div>
+            </div>
+            <div class="ts">
+                <table id="stocks_table" class="table table-striped fxt" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Company name</th>
+                            <th>Price</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="stocks_tbody">
+                        <tr>
+                            <td>AAPL</td>
+                            <td>Apple, Inc</td>
+                            <td>$108.86</td>
+                            <td><a href="https://iexcloud.io">IEX Cloud</a></td>
+                            <td>
+                                <button type="button" class="bs2">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer1 container-fluid"><!--
+            <p>
+                <a href="https://icons8.com/icon/73/home">icon by Icons8 |</a>
+                <a href="https://icons8.com/icon/978/account">Account icon by Icons8 | </a>
+                <a href="https://icons8.com/icon/47785/login">Login icon by Icons8 | </a>
+                <a href="https://icons8.com/icon/48527/logout-rounded-left">Logout Rounded Left icon by Icons8 | </a>
+                <a href="https://exchangeratesapi.io">Exchange rates API by Exchangeratesapi.io</a>
+            </p>-->
+            &#169 Copyright 2020<br>
+            All rights reserved. <br>
+            OLAN was developed independently by Joshua Olaniyan.<br>
+            <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+        </div>
+    </footer>
+
+    <!-- Confirmation modal-->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal2" id="confirmation_modalbtn" style="display: none;">
+        Launch modal
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modallabel2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" id="modal-header2">
+                    <h5 class="modal-title" id="modallabel2">
+                        <img src="{% static 'bankofjosh/warning.png' %}" alt="error icon" class="d-inline-block ic">
+                        <span>Confirm!</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bl" id="modal-body2">
+                    You are sending £100 to French.
+                </div>
+                <div class="modal-footer" id="modal-footer2">
+                    <button type="button" class="btn btn-light" data-dismiss="modal" id="no">Cancel</button>
+                    <button type="button" class="btn btn-light" id="yes">Send money</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading">
+        <img src="{% static 'bankofjosh/loading.png' %}" alt="Loading" height="40" width="40" class="loading">
+    </div>
+{% endblock %}
