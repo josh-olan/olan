@@ -29,10 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Change the background colour and colour of footer if not My Accounts page
         let footer = document.querySelector('.footer1');
+        let header = document.querySelector('#navigate');
         if (footer != null){
             footer.style.backgroundColor = "rgb(6, 95, 122)";
             footer.style.color = "white";
         }
+        header.style.backgroundColor = "whitesmoke";
+        document.querySelector('#boj').style.color = "black";
+        document.querySelectorAll('#menu li a').forEach(el => {
+            el.style.color = "black";
+        })
     }
 
     document.querySelector('#toggler').addEventListener("click", change_menu_style);
@@ -345,8 +351,12 @@ function change_menu_style(){
     /*
     Change the styling of the menu text
     */
-    //document.querySelector('#menu').style.color = "white";
-    document.querySelector('#menu').style.backgroundColor = "#888888";
+    let menu = document.querySelector('#menu');
+    if (document.title != 'My Accounts'){
+        menu.style.backgroundColor = "whitesmoke";
+    } else {
+        menu.style.backgroundColor = "rgb(0, 108, 216)";
+    }
     document.querySelectorAll('#menu>li').forEach(e => {
         e.style.textAlign = "center";
     })

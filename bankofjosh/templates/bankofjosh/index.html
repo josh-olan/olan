@@ -34,43 +34,28 @@
                 <ul class="navbar-nav" id="menu">
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">
-                      <span class="dib">
-                        <img src="https://img.icons8.com/flat_round/64/000000/home--v1.png" width="25" height="25">
-                      </span>
                       Home<span class="sr-only">(current)</span>
                     </a>
                   </li>
                   {% if user.is_authenticated %}
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'myaccounts' 'main' %}">
-                        <span class="dib">
-                          <img src="https://img.icons8.com/fluent/48/000000/merchant-account.png" width="25" height="25">
-                        </span> 
                         Accounts
                       </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'logout' %}">
-                        <span class="dib">
-                          <img src="https://img.icons8.com/cute-clipart/64/000000/logout-rounded-left.png" width="25" height="25">
-                        </span> 
                         Logout
                       </a>
                     </li>
                   {% else %}
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'register' %}">
-                        <span class="dib">
-                          <img src="https://img.icons8.com/cotton/64/000000/create-new--v1.png" width="25" height="25">
-                        </span> 
                         Create Account
                       </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'login' %}">
-                        <span class="dib">
-                          <img src="https://img.icons8.com/cute-clipart/64/000000/login-rounded-right.png" width="25" height="25">
-                        </span> 
                         Login
                       </a>
                     </li>
@@ -84,7 +69,7 @@
             <div class="container-fluid">
               <div class="first_content row">
                 <div class="first_right col tac">
-                  <h3 id="bme" class="hide">Banking Made Easy</h3>
+                  <h3 id="bme" class="hide">Banking Made Easy!</h3>
                   <p class="hide">OLAN offers a banking and trading platform.</p>
                 </div>
               </div>
@@ -174,25 +159,21 @@
 
         <footer>
           <div class="footer1">
-            <div class="container">
-              <div class="row">
-                <div class="col tal">
-                  <p>&#169 Copyright OLAN 2020</p>
-                  <p>All rights reserved.</p>
-                  <p>OLAN was developed independently by Joshua Olaniyan.</p>
-                </div>
-                <div class="col tal">
-                  <p><a href="https://icons8.com/icon/73/home">Home icon by Icons8</a></p>
-                  <div>Icons made by 
-                    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
-                    from 
-                    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                  </div>
-                  <br>
-                  <p>Management photos from PxHere.</p>
-                </div>
+            <div class="tac">
+              <p>&#169 Copyright OLAN 2020</p>
+              <p>All rights reserved.</p>
+              <p>OLAN was developed independently by Josh Olaniyan.</p>
+            </div><!--
+            <div class="tal">
+              <p><a href="https://icons8.com/icon/73/home">Home icon by Icons8</a></p>
+              <div>Icons made by 
+                <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
+                from 
+                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
               </div>
-            </div>
+              <br>
+              <p>Management photos from PxHere.</p>
+            </div>-->
           </div>
         </footer>
       {% endblock %}
