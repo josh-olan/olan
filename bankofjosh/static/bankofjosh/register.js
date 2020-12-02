@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (document.title != 'My Accounts'){
-        document.querySelector('#warning').style.display = 'none';
 
         // Change the background colour and colour of footer if not My Accounts page
         let footer = document.querySelector('.footer1');
