@@ -1,0 +1,171 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div id="nav">
+        <img src="{% static 'mail/nav_image.png' %}" alt="nav icon" class="anime" width="50">
+        <h4>OLAN <i>mail</i></h4>
+        <div>
+            <a href="#" id="search_icon">
+                <img src="{% static 'mail/search.png' %}" alt="search" width="30" height="30">
+            </a>
+            <a href="#" id="menu_icon">
+                <img src="{% static 'mail/menu.png' %}" alt="menu" width="50" height="30">
+            </a>
+        </div>
+    </div>
+    <div class="container-fluid" id="container-fluid">
+        <div id="search_div">
+            <form id="search-form">
+                <input type="text" placeholder="Search Current Mailbox" name="search" id="search_field" required>
+                <select id="search_filter" required>
+                    <option value="" disabled selected>Filter by</option>
+                    <option value="body">Message</option>
+                    <option value="sender">Sender</option>
+                    <option value="recipient">Recipient</option>
+                </select>
+                <button type="submit" id="search_button">Search mail</button>
+            </form>
+        </div>
+        <div>
+            <h6>{{ request.user.email }}</h6>
+        </div>
+
+        <div class="row">
+            <div class="col-1" id="left">
+                <ul id="ul">
+                    <a href="#" id="inbox">
+                        <li>
+                            <img src="{% static 'mail/inbox.png' %}" alt="Inbox" width="18" height="18">
+                            Inbox  <span></span>
+                        </li>
+                    </a>
+                    <a href="#" id="compose">
+                        <li>
+                            <img src="{% static 'mail/compose.png' %}" alt="Compose" width="18" height="18">
+                            Compose
+                        </li>
+                    </a>
+                    <a href="#" id="sent">
+                        <li>
+                            <img src="{% static 'mail/sent.png' %}" alt="Sent" width="18" height="18"> 
+                            Sent
+                        </li>
+                    </a>
+                    <a href="#" id="archived">
+                        <li>
+                            <img src="{% static 'mail/archive.png' %}" alt="Archive" width="18" height="18">
+                            Archive
+                        </li>
+                    </a>
+                    <a href="{% url 'logout' %}">
+                        <li>
+                            <img src="https://img.icons8.com/wired/64/000000/logout-rounded-left.png" width="18" height="18">
+                            Log Out
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="col">
+                <div id="emails-view">
+                </div>
+            
+                <div id="compose-view">
+                    <div>
+                        <h5>New Email</h5>
+                        <div id="message"></div>
+                        <form id="compose-form"> 
+                            <div class="form-group">
+                                From: <input disabled class="form-control" value="{{ request.user.email }}" required>
+                            </div>
+                            <div class="form-group">
+                                To: <input id="compose_recipients" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="compose-subject" placeholder="Subject" required>
+                            </div>
+                            <textarea class="form-control" id="compose-body" placeholder="Message" required></textarea>
+                            <div id="submit_div">
+                                <input type="submit" id="compose-submit" value="Send mail">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
+                <div id="open-view">
+                    <div>
+                        <p id="email-sender"><b>From:</b> </p>
+                        <p id="email-recipients"><b>To:</b> </p>
+                        <p id="email-subject"><b>Subject:</b> </p>
+                        <p id="email-timestamp"><b>Timestamp:</b> </p>
+                        <div id="email-archive">
+                            <span id="email-reply"></span>
+                            <span id="email-abutton"></span>
+                        </div>
+                        <hr>
+                        <p id="email-body"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loading">
+        <p>
+            <div class="loading">L</div>
+            <div class="loading">o</div>
+            <div class="loading">a</div>
+            <div class="loading">d</div>
+            <div class="loading">i</div>
+            <div class="loading">n</div>
+            <div class="loading">g</div>
+            <div class="loading">.</div>
+            <div class="loading">.</div>
+            <div class="loading">.</div>
+        </p>
+    </div>
+    <div id="menu_view" class="sd">
+        <div id="menu_profile">
+            <img src="{% static 'mail/profile.png' %}" alt="profile icon" height="50" width="50">
+            <p>{{ request.user.email }}</p>
+        </div>
+        <hr>
+        <ul id="ul_2">
+            <a href="#" id="inbox2">
+                <li>
+                    <img src="{% static 'mail/white_inbox.png' %}" alt="Inbox" width="25" height="22">
+                    Inbox  <span></span>
+                </li>
+            </a>
+            <a href="#" id="compose2">
+                <li>
+                    <img src="https://img.icons8.com/clouds/100/000000/multi-edit.png" alt="Compose" width="25" height="25">
+                    Compose
+                </li>
+            </a>
+            <a href="#" id="sent2">
+                <li>
+                    <img src="{% static 'mail/white_sent.png' %}" alt="Sent" width="25" height="25"> 
+                    Sent
+                </li>
+            </a>
+            <a href="#" id="archived2">
+                <li>
+                    <img src="https://img.icons8.com/plasticine/100/000000/logs-folder.png" alt="Archive" width="25" height="25">
+                    Archive
+                </li>
+            </a>
+            <a href="{% url 'logout' %}">
+                <li>
+                    <img src="https://img.icons8.com/dusk/64/000000/logout-rounded-down--v2.png" width="20" height="20">
+                    Log Out
+                </li>
+            </a>
+        </ul>
+    </div>
+    
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
