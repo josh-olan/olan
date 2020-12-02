@@ -1,6 +1,6 @@
 var refresh;
 document.addEventListener("DOMContentLoaded", () => {
-
+    loading("load");
     checkaccounts();
     sendto();
     text_if_no_account();
@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('#sendmoney_view').style.display = "none";
     document.querySelector('.transactions_view').style.display = "none";
     document.querySelector('#addaccounts_view').style.display = "none";
+    loading("hide");
 })
 
 
@@ -97,7 +98,7 @@ function text_if_no_account(){
     /*
     Checks if the user has an account or not and displays a message
     */
-
+    loading("load");
     if (document.querySelector('.each_account_holder') == null){
         const starter_div = document.createElement("div");
         const info = document.createElement("p");
@@ -121,12 +122,14 @@ function text_if_no_account(){
 
         document.querySelector('#accounts_container').append(starter_div);
     }
+    loading("hide");
 }
 
 
 function switch_views(display){
 
     // Switches content
+    loading("load");
     let children = document.querySelector('.content_view').children;
     for (let i = 0; i < children.length; i++){
         if (children[i].dataset.display == display){
@@ -155,11 +158,13 @@ function switch_views(display){
             el.value = "";
         })
     }
+    loading("hide");
 }
 
 
 function change_send_view(event){
     event.preventDefault();
+    loading("load");
     // Hide other send views
     if(document.querySelector('#between').checked == true){
         document.querySelector('.sendfrom_view').style.display = 'none';
@@ -170,12 +175,14 @@ function change_send_view(event){
         document.querySelector('.between_accounts_view').style.display = 'none';
         document.querySelector('.external_account_view').style.display = 'block';
     }
+    loading("hide");
 }
 
 
 function checkaccounts(){
 
     // Disable accounts the user has already
+    loading("load");
     const savings_rd = document.querySelector('#savings');
     const current_rd = document.querySelector('#current');
     const htb_rd = document.querySelector('#help-to-buy');
@@ -206,13 +213,14 @@ function checkaccounts(){
         if (data[0] != null && data[1] != null && data[2] != null){
             document.querySelector('ul.nav.nav-tabs').children[2].style.display = 'none';
         }
+        loading("hide");
     })
 }
 
 
 function sendto(){
     // Populates 'Send to' dropdown
-
+    loading("load");
     let sendfrom_value = document.querySelector('select.form-control').value;
     let parent = document.querySelectorAll('select.form-control')[1];
 
@@ -252,6 +260,7 @@ function sendto(){
         } else {
             document.querySelector('#transfer_btn').disabled = false;
         }
+        loading("hide");
     })
 }
 
@@ -429,6 +438,8 @@ function clearfields(){
 
 function show_transactions(element){
 
+    loading("load");
+
     // Get the parent
     let parent = element.parentElement;
 
@@ -453,6 +464,8 @@ function show_transactions(element){
     // Hide the Accounts view and display the Transactions view
     document.querySelector('#accounts_container').style.display = 'none';
     document.querySelector('.transactions_view').style.display = 'block';
+
+    loading("hide");
 }
 
 
@@ -748,7 +761,7 @@ function withdraw(event){
     /*
     Withdraw amount from the Trading account to desired account
     */
-
+    loading("load");
     event.preventDefault();
     const amount = parseFloat(document.querySelector('#withdrawal_amount').value);
     const account = document.querySelector('#stock_dropdown2').value;
@@ -774,15 +787,18 @@ function withdraw(event){
             }
             update_balances();
             update_trading_balance();
+            loading("hide");
             display_message(null, data.message);
             document.querySelector('#withdrawal_view a').click();
             document.querySelector('#stock').scrollIntoView();
         })
         .catch(error => {
+            loading("hide");
             display_message("error", error)
         })
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error);
     })
 }
@@ -875,7 +891,6 @@ function latest_stock_price(symbol){
     /*
     Returns Stock latest price
     */
-
    fetch(`https://cloud.iexapis.com/stable/stock/${symbol}/batch?token=${key}&types=quote`)
    .then(response => response.json())
    .then(data => {
@@ -1001,7 +1016,7 @@ function place_trade(event){
     /*
     Places a trade
     */
-
+    loading("load");
     event.preventDefault();
     let symbol = document.querySelector('#placetrade_stock').value;
     let shares = parseInt(document.querySelector('#placetrade_shares').value);
@@ -1035,19 +1050,23 @@ function place_trade(event){
                     throw new Error(data.error);
                 }
                 update_trading_balance();
+                loading("hide");
                 display_message(null, data.message);
                 document.querySelector('#placetrade_view a').click();
                 document.querySelector('#stock').scrollIntoView();
             })
             .catch(error => {
+                loading("hide");
                 display_message("error", error);
             })
         })
         .catch(error => {
+            loading("hide");
             display_message("error", error);
         })
     })
     .catch(error => {
+        loading("hide");
         display_message("error","Stock not found!");
     })
 }
@@ -1057,7 +1076,7 @@ function get_active_trades(){
     /*
     Returns Active trades
     */
-
+    loading("load");
     fetch(`/get_trades/${'active'}/0`)
     .then(response => response.json())
     .then(data => {
@@ -1134,8 +1153,11 @@ function get_active_trades(){
                 document.querySelector('#activetrades_tbody').append(tr);
             }
         }
+        loading("hide");
+        document.querySelector('#stock').scrollIntoViewIfNeeded();
     })
     .catch(error => {
+        loading("hide");
         display_message("error", error)
     })
 }
@@ -1291,9 +1313,8 @@ function sell(){
     Sell stocks
     */
     loading("load");
-    let total = document.getElementById(`${this.dataset.itemid}-total`).innerText;
-    let sell_price = document.querySelector(`#${this.dataset.symbol}-price`).innerText;
-
+    let total = document.getElementById(`${this.dataset.itemid}-total`).innerHTML;
+    let sell_price = document.querySelector(`#${this.dataset.symbol}-price`).innerHTML;
     // Convert the total
     fetch('https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,GBP')
     .then(response => response.json())
@@ -1316,9 +1337,6 @@ function sell(){
             // Remove from the active trades table
             document.getElementById(`${this.dataset.itemid}_tr`).remove();
 
-            // Display message
-            display_message(null, data.message);
-
             // Update the user's trading balance
             update_trading_balance();
 
@@ -1326,6 +1344,9 @@ function sell(){
             loading("hide");
             document.querySelector('#activetrades_view>div>a').click();
             document.querySelector('#stock').scrollIntoView();
+
+            // Display message
+            display_message(null, data.message);
         })
         .catch(error => {
             loading("hide");
@@ -1361,13 +1382,15 @@ function loading(action){
 
     if (action == "load"){
         loading.display = "block";
-        welcome.display = "none";
-        body.display = "none";
-        footer.display = "none";
+        window.scrollTo(0, 0);
+        //document.querySelector('#loading').scrollIntoViewIfNeeded();
+        welcome.visibility = "hidden";
+        body.visibility = "hidden";
+        footer.visibility = "hidden";
     } else {
         loading.display = "none";
-        welcome.display = "block";
-        body.display = "block";
-        footer.display = "block";
+        welcome.visibility = "visible";
+        body.visibility = "visible";
+        footer.visibility = "visible";
     }
 }
