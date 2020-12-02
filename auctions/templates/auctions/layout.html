@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <script> csrf = '{{ csrf_token }}'</script>
+        <script src="{% static 'auctions/auctions.js' %}"></script>
+    </head>
+    <body>
+        <div id="header_div" class="pad bg-primary">
+            <div class="container-fluid">
+                <div class="row" id="first_row">
+                    <div class="col">
+                        <p id="h1">
+                            <span>O</span>
+                            <span>L</span>
+                            <span>A</span>
+                            <span>N</span>
+                        </p>
+                        <p id="h2">Auctions</p>
+                    </div>
+                    <div class="col" id="search_div">
+                        <form>
+                            <span>
+                                <input type="text" class="form-control" id="search_item"placeholder="Search item" required>
+                            </span>
+                            <span>
+                                <button type="submit">Search</button>
+                            </span>
+                        </form>
+                    </div>
+                    <div class="col" id="third_holder">
+                        <div>
+                            <div id="search_icon_div">
+                                <a href="#" id="search_icon_a">
+                                    <img src="{% static 'auctions/search_icon.png' %}" alt="search" width="25" height="25">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" id="menu_icon_a">
+                                    <img src="{% static 'auctions/menu_icon.png' %}" alt="menu" width="25" height="25">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="signed_div">
+                {% if user.is_authenticated %}
+                    Signed in as <strong>{{ user.username }}</strong>.
+                {% else %}
+                    Not signed in.
+                {% endif %}
+            </div>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link heads" href="#" id="media_sort">Sort</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create' %}">Create Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wonlistings' %}">Won Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'watchlist' %}">Watchlist 
+                            {% if watchlist is None %}
+                                <span class="badge badge-light">0</span>
+                            {% else %}
+                            <span class="badge badge-light">{{ watchlist }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% block body %}
+        {% endblock %}
+        <div id="loading">
+            <img src="{% static 'auctions/loading.png' %}" alt="Loading" height="40" width="40" class="loading">
+        </div>    
+        <footer class="footer">
+            <div>
+                <small>&#169 2020 OLAN Auctions.</small><br>
+                <small>All rights reserved.</small><br>
+                <small>Developed by Josh Olaniyan.</small>
+            </div>
+        </footer>
+    </body>
+</html>
