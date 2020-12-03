@@ -764,7 +764,8 @@ function withdraw(event){
     event.preventDefault();
     const amount = parseFloat(document.querySelector('#withdrawal_amount').value);
     const account = document.querySelector('#stock_dropdown2').value;
-
+    console.log(amount);
+    console.log(account);
     fetch(`https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,GBP`)
     .then(response => response.json())
     .then(data => {
@@ -780,14 +781,14 @@ function withdraw(event){
             })
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.error != undefined){
-                throw new Error(data.error)
+        .then(vals => {
+            if (vals.error != undefined){
+                throw new Error(vals.error)
             }
             update_balances();
             update_trading_balance();
             loading("hide");
-            display_message(null, data.message);
+            display_message(null, vals.message);
             document.querySelector('#withdrawal_view a').click();
             document.querySelector('#stock').scrollIntoView();
         })
