@@ -210,7 +210,6 @@ def myaccounts(request, validate):
 
     setup(request)
 
-    firstname = request.user.first_name.capitalize()
     accounts = []
     # If user has Savings account
     savings = getaccount(request, "savings", None)
@@ -229,7 +228,8 @@ def myaccounts(request, validate):
     accounts.append(trading)
 
     data = {
-        "firstname": firstname,
+        "firstname": request.user.first_name.capitalize(),
+        "lastname": request.user.last_name.capitalize(),
         "accounts": accounts
     }
 

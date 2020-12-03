@@ -501,7 +501,6 @@ function pagination(account, page){
     fetch(`/get_transactions/${account}/${page}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         let table = document.querySelector('#table1').style;
         let pagination = document.querySelector('#pagination_one');
         if (data.data.length == 0){
@@ -1385,14 +1384,19 @@ function loading(action){
     if (action == "load"){
         loading.display = "block";
         window.scrollTo(0, 0);
-        //document.querySelector('#loading').scrollIntoViewIfNeeded();
         welcome.visibility = "hidden";
         body.visibility = "hidden";
         footer.visibility = "hidden";
+        if (document.querySelector("#pagination_one")){
+            document.querySelector("#pagination_one").style.visibility = "hidden";
+        }
     } else {
         loading.display = "none";
         welcome.visibility = "visible";
         body.visibility = "visible";
         footer.visibility = "visible";
+        if (document.querySelector("#pagination_one")){
+            document.querySelector("#pagination_one").style.visibility = "visible";
+        }
     }
 }

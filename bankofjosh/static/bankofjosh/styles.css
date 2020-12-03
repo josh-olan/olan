@@ -710,6 +710,11 @@ input[type="password"], input[type="email"]{
     #boj{
         font-size: 23px;
     }
+    #welcome{
+    margin: 20px;
+    font-size: 15px;
+    padding-left: 1vw;
+    }
 }
   
   /* Small devices (portrait tablets and large phones, 600px and up) */
