@@ -105,7 +105,7 @@ class Transaction(models.Model):
     from_or_to = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     account_type = models.CharField(max_length=15)
     action = models.BooleanField(default=False)
-    description = models.CharField(max_length=15)
+    description = models.CharField(max_length=25)
     when = models.DateTimeField(auto_now=True)
     bal_after_trans = models.FloatField()
     amount = models.FloatField()
