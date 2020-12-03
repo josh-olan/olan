@@ -514,7 +514,7 @@ function pagination(account, page){
                 document.querySelector('.ts').append(p);
 
                 // Hide pagination
-                pagination.style.visibility= "hidden";
+                pagination.style.opacity= "0";
             }
         } else {
 
@@ -522,7 +522,7 @@ function pagination(account, page){
             table.display = "table";
 
             // Display pagination
-            pagination.style.visibility = "visible";
+            pagination.style.opacity = "1";
 
             // Remove the text
             if (data.data.length != 0 && document.querySelector('#no_trans_notice') != null){

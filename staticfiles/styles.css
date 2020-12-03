@@ -283,6 +283,10 @@ thead{
 }
 body{
     background-color: white;
+    min-height: 100vh; 
+    position: relative; 
+    padding-bottom: 100px; 
+    height: 100%;
 }
 .footer2, .footer1{
     width: 100%;
@@ -292,14 +296,15 @@ body{
 .footer1{
     font-size: 11px;
     padding: 10px;
-    position: relative;
+    position: absolute;
     background-color: rgb(231, 231, 231);
     width: 100%!important;
     color: black;
     border-top: 1px solid lightgray;
     text-align: center;
     margin-top: 25px;
-    height: fit-content;
+    height: 100px;
+    /*height: fit-content;*/
 }
 .footer2{
     position: fixed;
